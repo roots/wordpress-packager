@@ -27,7 +27,10 @@ jobs:
             - vendor
       - run: cc-test-reporter before-build
       - run: composer test -- --coverage-clover clover.xml
-      - run: cc-test-reporter after-build --coverage-input-type clover
+      - run:
+          command: cc-test-reporter after-build --coverage-input-type clover --exit-code $?
+          when: always
+      - run: mv clover.xml coverage/
       - store_test_results:
           path: coverage/
       - store_artifacts:
