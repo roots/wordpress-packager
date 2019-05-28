@@ -21,6 +21,10 @@ jobs:
             - composer-v1-{{ checksum "composer.lock" }}
             - composer-v1-
       - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
       - run: cc-test-reporter before-build
       - run: composer test
       - store_test_results:
@@ -32,10 +36,6 @@ jobs:
           working_directory: coverage
       - run: composer test:e2e
       - run: composer phpstan:analyse
-      - save_cache:
-          key: composer-v1-{{ checksum "composer.lock" }}
-          paths:
-            - vendor
 
 workflows:
   test:
