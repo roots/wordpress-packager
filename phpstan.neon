@@ -1,0 +1,7 @@
+parameters:
+    level: max
+    paths:
+        - %rootDir%/../../../src
+
+includes:
+- vendor/phpstan/phpstan-strict-rules/rules.neon
