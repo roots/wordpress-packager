@@ -1,0 +1,41 @@
+version: 2.1
+
+executors:
+  wordpress-packager-dev:
+    docker:
+      - image: rootsdev/wordpress-packager-dev
+
+jobs:
+  test:
+    executor: wordpress-packager-dev
+    environment:
+      CC_TEST_REPORTER_ID: f52c1c065d5a2540c7a52caa93b5b8446085c65855ed7dc8ded71042f44f0824
+    steps:
+      - run: php -v
+      - run: composer --version
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > /usr/local/bin/cc-test-reporter
+      - run: chmod +x /usr/local/bin/cc-test-reporter
+      - checkout
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
+            - composer-v1-
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      - run: cc-test-reporter before-build
+      - run: composer test -- --coverage-clover clover.xml
+      - run: cc-test-reporter after-build --coverage-input-type clover
+      - store_test_results:
+          path: coverage/
+      - store_artifacts:
+          path: coverage/
+      - run: composer test:e2e
+      - run: composer phpstan:analyse
+
+workflows:
+  test:
+    jobs:
+      - test
