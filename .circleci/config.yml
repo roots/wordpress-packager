@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          make docker
+      - run:
+          make test-coverage-remote
+      - store_test_results:
+          path: coverage/
+      - store_artifacts:
+          path: coverage/
