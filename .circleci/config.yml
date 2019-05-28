@@ -27,12 +27,11 @@ jobs:
             - vendor
       - run: cc-test-reporter before-build
       - run: composer test -- --coverage-clover clover.xml
+      - run: cc-test-reporter after-build --coverage-input-type clover --exit-code $?
       - store_test_results:
           path: coverage/
       - store_artifacts:
           path: coverage/
-      - run:
-          command: cc-test-reporter after-build --coverage-input-type clover --exit-code $?
       - run: composer test:e2e
       - run: composer phpstan:analyse
 
