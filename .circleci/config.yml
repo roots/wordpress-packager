@@ -9,9 +9,17 @@ workflows:
       - composer/install:
           name: test
           executor: composer/seven
+          pre-steps:
+            - run: sudo docker-php-ext-enable xdebug
+            - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/cc-test-reporter
+            - run: chmod +x ~/cc-test-reporter
+            - run: ~/cc-test-reporter before-build
           post-steps:
             - composer/exec:
                 command: test
+            - run:
+                command: ~/cc-test-reporter after-build --coverage-input-type clover --exit-code $?
+                working_directory: coverage
       - composer/install:
           name: test:e2e
           executor: composer/seven
