@@ -17,4 +17,14 @@
             <directory suffix="TestE2E.php">test/E2E</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="coverage/"/>
+        <log type="coverage-clover" target="coverage/clover.xml"/>
+        <log type="junit" target="coverage/junit.xml"/>
+    </logging>
 </phpunit>
