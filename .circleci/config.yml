@@ -25,9 +25,7 @@ jobs:
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
             - vendor
-      - run: cc-test-reporter before-build
-      - run: composer test -- --coverage-clover clover.xml
-      - run: cc-test-reporter after-build --coverage-input-type clover --exit-code $?
+      - run: ./build/ci-unit.sh
       - store_test_results:
           path: coverage/
       - store_artifacts:
