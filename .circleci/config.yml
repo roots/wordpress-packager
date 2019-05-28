@@ -1,0 +1,40 @@
+version: 2.1
+
+executors:
+  php-73:
+    docker:
+      - image: circleci/php:7.3-stretch
+
+jobs:
+  # TODO: Use custom docker image
+  executor: php-73
+  test:
+    executor: php-73
+    steps:
+      - run: php -v
+      - run: composer --version
+      # TODO: Download to a different place
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/cc-test-reporter
+      - run: chmod +x ~/cc-test-reporter
+      - run: ~/cc-test-reporter before-build
+      - checkout
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
+            - composer-v1-
+      - run: composer install -n --prefer-dist
+      - run: composer test
+      - run:
+          command: ~/cc-test-reporter after-build --coverage-input-type clover --exit-code $?
+          working_directory: coverage
+      - run: composer test:e2e
+      - run: composer phpstan:analyse
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+
+workflows:
+  test:
+    jobs:
+      - test
