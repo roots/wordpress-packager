@@ -7,3 +7,6 @@ update_configs:
     allowed_updates:
       - match:
           update_type: all
+  - package_manager: docker
+    directory: /build/base
+    update_schedule: weekly
