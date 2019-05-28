@@ -26,3 +26,9 @@ workflows:
           post-steps:
             - composer/exec:
                 command: test:e2e
+      - composer/install:
+          name: phpstan:analyse
+          executor: composer/seven
+          post-steps:
+            - composer/exec:
+                command: phpstan:analyse
