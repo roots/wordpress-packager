@@ -79,7 +79,7 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
         return '5.6.20';
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $dump = (new ArrayDumper())->dump($this);
         // TODO: figure out why I have to do this in upstream
