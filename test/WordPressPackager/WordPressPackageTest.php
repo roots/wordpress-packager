@@ -59,6 +59,8 @@ class WordPressPackageTest extends TestCase
 
     public function testCompareTo()
     {
+$this->assertEquals('a', 'b');
+
         $this->assertEquals(-1, $this->pkgC->compareTo($this->pkgA));
         $this->assertEquals(-1, $this->pkgAAlpha->compareTo($this->pkgBAlpha));
 
