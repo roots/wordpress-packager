@@ -41,7 +41,7 @@ class WPDotOrgHTML implements SourceInterface
 
         $basename = self::getBasename($httpUrl);
 
-        if (!$basename) {
+        if ($basename === '') {
             return false;
         }
 
@@ -62,7 +62,7 @@ class WPDotOrgHTML implements SourceInterface
 
         $version = self::getVersionFromBasename($basename);
 
-        return $version && self::isVersion($version);
+        return self::isVersion($version);
     }
 
     protected static function getBasename(Collection $urlParts): string
@@ -72,12 +72,9 @@ class WPDotOrgHTML implements SourceInterface
 
     protected static function getVersionFromBasename(string $basename): ?string
     {
-        if (!preg_match('/^wordpress-(?<version>\S+)\.zip$/', $basename, $matches)) {
-            return null;
-        }
-        [, $version] = $matches;
+        preg_match('/^wordpress-(?<version>\S+)\.zip$/', $basename, $matches);
 
-        return $version;
+        return $matches['version'] ?? null;
     }
 
     protected static function getVersionFromURL(string $url): ?string
@@ -89,7 +86,7 @@ class WPDotOrgHTML implements SourceInterface
     private static function isVersion(?string $version): bool
     {
         try {
-            return $version && (bool)(new VersionParser())->normalize($version);
+            return is_string($version) ? (bool)(new VersionParser())->normalize($version) : false;
         } catch (\UnexpectedValueException $_) {
             return false;
         }
@@ -98,7 +95,7 @@ class WPDotOrgHTML implements SourceInterface
     public function getRepo(): WordPressPackageRepository
     {
         $html = $this->html;
-        if (!$html) {
+        if ($html === '') {
             throw new InvalidArgumentException('blank html');
         }
 
@@ -132,6 +129,7 @@ class WPDotOrgHTML implements SourceInterface
                     $org = 'roots';
 
                     $name = "$org/wordpress-dotorg";
+                    /** @var string $version Version is guaranteed because of `isValidReleaseURL` above. */
                     $version = self::getVersionFromURL($releaseUrl);
 
                     $package = new WordPressPackage($name, $version);
