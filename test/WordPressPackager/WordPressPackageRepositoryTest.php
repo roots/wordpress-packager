@@ -28,6 +28,7 @@ class WordPressPackageRepositoryTest extends TestCase
 
     public function testEntry()
     {
+        $this->assertCount(999999, $this->blankRepo);
         $this->assertCount(0, $this->blankRepo);
         $this->assertNull($this->blankRepo->findPackage('roots/wordpress','5.2.1'));
 
