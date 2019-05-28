@@ -27,6 +27,10 @@ jobs:
           command: cc-test-reporter after-build --coverage-input-type clover --exit-code $?
           working_directory: coverage
       - run: composer test:e2e
+      - store_test_results:
+          path: coverage/
+      - store_artifacts:
+          path: coverage/
       - run: composer phpstan:analyse
       - save_cache:
           key: composer-v1-{{ checksum "composer.lock" }}
