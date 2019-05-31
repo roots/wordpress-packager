@@ -29,6 +29,13 @@ class WPDotOrgHTMLTest extends TestCase
         $this->invalidUrls = $json(__DIR__ . '/../../resources/dotorg/wordpress-invalid-download-urls.json');
     }
 
+    public function testInvalid()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $a = new WPDotOrgHTML('');
+        $a->getRepo();
+    }
+
 
     public function testGetRepo()
     {
@@ -85,6 +92,7 @@ class WPDotOrgHTMLTest extends TestCase
         $this->assertFalse(WPDotOrgHTML::isValidReleaseURL('https://www.itineris.co.uk/'));
         $this->assertFalse(WPDotOrgHTML::isValidReleaseURL('https://wordpress.org/'));
         $this->assertFalse(WPDotOrgHTML::isValidReleaseURL('https://wordpress.org/completely-unrelated.zip'));
+        $this->assertFalse(WPDotOrgHTML::isValidReleaseURL('https://wordpress.org/wordpress-5.2.1.tar.gz'));
 
         // force http
         $this->assertFalse(WPDotOrgHTML::isValidReleaseURL('http://wordpress.org/wordpress-5.2.1.zip'));

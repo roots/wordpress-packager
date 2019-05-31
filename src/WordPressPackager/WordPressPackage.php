@@ -105,13 +105,10 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
         if (SemverComparator::lessThan($aVer, $bVer)) {
             return -1;
         }
-        if (SemverComparator::equalTo($aVer, $bVer)) {
-            return strnatcmp($a->getName(), $b->getName());
-        }
         if (SemverComparator::greaterThan($aVer, $bVer)) {
             return 1;
         }
 
-        throw new RuntimeException('unable to sort versions');
+        return strnatcmp($a->getName(), $b->getName());
     }
 }
