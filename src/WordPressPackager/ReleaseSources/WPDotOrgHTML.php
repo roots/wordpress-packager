@@ -32,7 +32,7 @@ class WPDotOrgHTML implements SourceInterface
         $this->html = $html;
     }
 
-    private static function isValidBasename(string $basename)
+    private static function isValidBasename(string $basename): bool
     {
         return (
             // whitelist
@@ -52,7 +52,7 @@ class WPDotOrgHTML implements SourceInterface
         $isHttps = $httpUrl->getScheme() === 'https';
         $wpOrgDomain = $host->getRegistrableDomain() === 'wordpress.org';
 
-        if (!$basename || !$isHttps || !$wpOrgDomain || !self::isValidBasename($basename)) {
+        if ($basename === '' || !$isHttps || !$wpOrgDomain || !self::isValidBasename($basename)) {
             return false;
         }
 
