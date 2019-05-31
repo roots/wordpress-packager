@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Roots\WordPressPackager\WordPressPackage;
 use Roots\WordPressPackager\WordPressPackageRepository;
+use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\DomCrawler\Link;
 
 class WPDotOrgHTML implements SourceInterface
 {
@@ -99,26 +101,17 @@ class WPDotOrgHTML implements SourceInterface
             throw new InvalidArgumentException('blank html');
         }
 
-        $dom = new DOMDocument('1.0', 'UTF-8'); // infers encoding from html but set encoding for safety
-        $prev = libxml_use_internal_errors(true);
-        $dom->loadHTML($html);
-        libxml_clear_errors();
-        libxml_use_internal_errors($prev);
-
-
-        $zipLinks = $dom->getElementsByTagName('a');
-        if ($zipLinks->length < 1) {
+        $zipLinks = (new Crawler($html))->filter('a[href$=".zip"]');
+        if (count($zipLinks) < 1) {
             return new WordPressPackageRepository([]);
         }
 
         return new WordPressPackageRepository(
             Collection::make($zipLinks)
-                ->map(function ($zipLink): ?string {
-                    if ($zipLink instanceof DOMElement) {
-                        $href = $zipLink->getAttribute('href');
-                        if (self::isValidReleaseURL($href)) {
-                            return $href;
-                        }
+                ->map(function (DOMElement $zipLink): ?string {
+                    $href = $zipLink->getAttribute('href');
+                    if (self::isValidReleaseURL($href)) {
+                        return $href;
                     }
                     return null;
                 })
