@@ -18,6 +18,12 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
     public function __construct(string $name, string $version)
     {
         parent::__construct($name, (new VersionParser())->normalize($version), $version);
+        $this->withMetadata();
+        $this->withRequires();
+    }
+
+    protected function withMetadata(): void
+    {
         $this->setType('wordpress-core');
         $this->setDescription('WordPress is web software you can use to create a beautiful website or blog.');
         $this->setAuthors([
@@ -42,6 +48,10 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
             'docs' => 'https://developer.wordpress.org/',
             'rss' => 'https://wordpress.org/news/feed/'
         ]);
+    }
+
+    protected function withRequires(): void
+    {
         $minPhpVersion = self::getMinPhpVersion($this->getVersion());
 
         $this->setRequires([
@@ -50,7 +60,9 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
         ]);
     }
 
-    private function makeLink(string $name, Constraint $constraint): Link {
+
+    private function makeLink(string $name, Constraint $constraint): Link
+    {
         return new Link(
             $this->getName(),
             $name,
