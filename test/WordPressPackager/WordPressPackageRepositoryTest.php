@@ -2,6 +2,8 @@
 
 namespace Roots\WordPressPackager;
 
+use Composer\Package\Package;
+use Composer\Repository\InvalidRepositoryException;
 use PHPUnit\Framework\TestCase;
 
 class WordPressPackageRepositoryTest extends TestCase
@@ -25,6 +27,23 @@ class WordPressPackageRepositoryTest extends TestCase
             new WordPressPackage('roots/wordpress', '4.0'),
         ]);
     }
+
+    public function testInvalid()
+    {
+        $this->expectException(InvalidRepositoryException::class);
+        $a = new WordPressPackageRepository([
+            new WordPressPackage('roots/wordpress', '5.2.1'),
+            new Package('roots/wp-config', '1.0.0', '1.0.0')
+        ]);
+    }
+
+    public function testJSON()
+    {
+        $data = json_decode(json_encode($this->fullRepo), true);
+        $this->assertEquals('4.0', $data[0]['version']);
+        $this->assertEquals('roots/wordpress', $data[0]['name']);
+    }
+
 
     public function testEntry()
     {
