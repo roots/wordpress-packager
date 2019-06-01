@@ -4,9 +4,13 @@ update_configs:
   - package_manager: php:composer
     directory: /
     update_schedule: weekly
-    allowed_updates:
+    automerged_updates:
       - match:
-          update_type: all
+          dependency_type: "development"
+          update_type: "all"
+      - match:
+          dependency_type: "production"
+          update_type: "semver:patch"
   - package_manager: docker
     directory: /build/base
     update_schedule: weekly
