@@ -14,6 +14,13 @@ use Roots\WordPressPackager\WordPressPackageRepository;
 
 class WPDotOrgHTML implements SourceInterface
 {
+    const DOM_DOCUMENT_VERSION = '1.0';
+    const DOM_DOCUMENT_ENCODING = 'UTF-8';
+
+    // TODO: don't hardcode package org
+    const PACKAGE_ORG = 'roots';
+    const PACKAGE_NAME = self::PACKAGE_ORG . '/wordpress-dotorg';
+
     /**
      * @var string
      */
@@ -32,31 +39,19 @@ class WPDotOrgHTML implements SourceInterface
     {
         $httpUrl = Collection::make(parse_url($url));
 
-        if ($httpUrl->get('scheme') !== 'https') {
-            return false;
-        }
-        if ($httpUrl->get('host') !== 'wordpress.org') {
+        if ($httpUrl->get('scheme') !== 'https' || $httpUrl->get('host') !== 'wordpress.org') {
             return false;
         }
 
         $basename = self::getBasename($httpUrl);
 
-        if ($basename === '') {
+        // Blacklist
+        if ($basename === '' || Str::startsWith($basename, 'wordpress-mu') || Str::endsWith($basename, ['-IIS.zip'])) {
             return false;
         }
 
-        // whitelist
-        if (!Str::startsWith($basename, 'wordpress-')) {
-            return false;
-        }
-        if (!Str::endsWith($basename, ['.zip'])) {
-            return false;
-        }
-        // blacklist
-        if (Str::startsWith($basename, 'wordpress-mu')) {
-            return false;
-        }
-        if (Str::endsWith($basename, ['-IIS.zip'])) {
+        // Whitelist
+        if (!Str::startsWith($basename, 'wordpress-') || !Str::endsWith($basename, ['.zip'])) {
             return false;
         }
 
@@ -94,17 +89,7 @@ class WPDotOrgHTML implements SourceInterface
 
     public function getRepo(): WordPressPackageRepository
     {
-        $html = $this->html;
-        if ($html === '') {
-            throw new InvalidArgumentException('blank html');
-        }
-
-        $dom = new DOMDocument('1.0', 'UTF-8'); // infers encoding from html but set encoding for safety
-        $prev = libxml_use_internal_errors(true);
-        $dom->loadHTML($html);
-        libxml_clear_errors();
-        libxml_use_internal_errors($prev);
-
+        $dom = $this->parseHtml($this->html);
 
         $zipLinks = $dom->getElementsByTagName('a');
         if ($zipLinks->length < 1) {
@@ -125,14 +110,9 @@ class WPDotOrgHTML implements SourceInterface
                 ->filter()
                 ->unique()
                 ->map(function (string $releaseUrl): WordPressPackage {
-                    // TODO: don't hardcode package org
-                    $org = 'roots';
-
-                    $name = "$org/wordpress-dotorg";
                     /** @var string $version Version is guaranteed because of `isValidReleaseURL` above. */
                     $version = self::getVersionFromURL($releaseUrl);
-
-                    $package = new WordPressPackage($name, $version);
+                    $package = new WordPressPackage(self::PACKAGE_NAME, $version);
 
                     $package->setDistType('zip');
                     $package->setDistUrl($releaseUrl);
@@ -141,5 +121,21 @@ class WPDotOrgHTML implements SourceInterface
                 })
                 ->toArray()
         );
+    }
+
+    private function parseHtml(string $html): DOMDocument
+    {
+        if ($html === '') {
+            throw new InvalidArgumentException('Blank HTML');
+        }
+
+        // infers encoding from html but set encoding for safety
+        $dom = new DOMDocument(self::DOM_DOCUMENT_VERSION, self::DOM_DOCUMENT_ENCODING);
+        $prevErrorFlag = libxml_use_internal_errors(true);
+        $dom->loadHTML($html);
+        libxml_clear_errors();
+        libxml_use_internal_errors($prevErrorFlag);
+
+        return $dom;
     }
 }

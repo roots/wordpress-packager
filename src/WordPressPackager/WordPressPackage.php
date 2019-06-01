@@ -15,42 +15,57 @@ use RuntimeException;
 
 class WordPressPackage extends CompletePackage implements JsonSerializable
 {
+    const PACKAGE_TYPE = 'wordpress-core';
+    const PACKAGE_DESCRIPTION = 'WordPress is web software you can use to create a beautiful website or blog.';
+    const PACKAGE_HOMEPAGE = 'https://wordpress.org/';
+    const PACKAGE_LICENCE = ['GPL-2.0-or-later'];
+
+    const PACKAGE_AUTHOR = [
+        'name' => 'WordPress Community',
+        'homepage' => 'https://wordpress.org/about/',
+    ];
+
+    const PACKAGE_KEYWORDS = [
+        'wordpress',
+        'blog',
+        'cms',
+    ];
+
+    const PACKAGE_SUPPORT = [
+        'issues' => 'https://core.trac.wordpress.org/',
+        'forum' => 'https://wordpress.org/support/',
+        'wiki' => 'https://codex.wordpress.org/',
+        'irc' => 'irc://irc.freenode.net/wordpress',
+        'source' => 'https://core.trac.wordpress.org/browser',
+        'docs' => 'https://developer.wordpress.org/',
+        'rss' => 'https://wordpress.org/news/feed/',
+    ];
+
+    const DEPENDENCY_PHP = 'php';
+    const DEPENDENCY_WORDPRESS_CORE_INSTALLER = 'roots/wordpress-core-installer';
+
     public function __construct(string $name, string $version)
     {
         parent::__construct($name, (new VersionParser())->normalize($version), $version);
-        $this->setType('wordpress-core');
-        $this->setDescription('WordPress is web software you can use to create a beautiful website or blog.');
-        $this->setAuthors([
-            (object)[
-                'name' => 'WordPress Community',
-                'homepage' => 'https://wordpress.org/about/'
-            ]
-        ]);
-        $this->setKeywords([
-            'wordpress',
-            'blog',
-            'cms'
-        ]);
-        $this->setHomepage('https://wordpress.org/');
-        $this->setLicense(['GPL-2.0-or-later']);
-        $this->setSupport([
-            'issues' => 'https://core.trac.wordpress.org/',
-            'forum' => 'https://wordpress.org/support/',
-            'wiki' => 'https://codex.wordpress.org/',
-            'irc' => 'irc://irc.freenode.net/wordpress',
-            'source' => 'https://core.trac.wordpress.org/browser',
-            'docs' => 'https://developer.wordpress.org/',
-            'rss' => 'https://wordpress.org/news/feed/'
-        ]);
+
+        $this->setType(self::PACKAGE_TYPE);
+        $this->setDescription(self::PACKAGE_DESCRIPTION);
+        $this->setAuthors([(object)self::PACKAGE_AUTHOR]);
+        $this->setKeywords(self::PACKAGE_KEYWORDS);
+        $this->setHomepage(self::PACKAGE_HOMEPAGE);
+        $this->setLicense(self::PACKAGE_LICENCE);
+        $this->setSupport(self::PACKAGE_SUPPORT);
+
         $minPhpVersion = self::getMinPhpVersion($this->getVersion());
 
         $this->setRequires([
-            $this->makeLink('php', new Constraint('>=', $minPhpVersion)),
-            $this->makeLink('roots/wordpress-core-installer', new Constraint('>=', '1.0.0')),
+            $this->makeLink(self::DEPENDENCY_PHP, new Constraint('>=', $minPhpVersion)),
+            $this->makeLink(self::DEPENDENCY_WORDPRESS_CORE_INSTALLER, new Constraint('>=', '1.0.0')),
         ]);
     }
 
-    private function makeLink(string $name, Constraint $constraint): Link {
+    private function makeLink(string $name, Constraint $constraint): Link
+    {
         return new Link(
             $this->getName(),
             $name,
