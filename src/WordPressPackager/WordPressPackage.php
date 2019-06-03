@@ -61,6 +61,11 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
         ]);
     }
 
+    /**
+     * Suggest PHP extensions that WordPress expects to be provided.
+     *
+     * @see https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions
+     */
     protected function withSuggests(): void
     {
         $this->setSuggests([
