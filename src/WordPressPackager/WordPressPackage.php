@@ -20,6 +20,7 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
         parent::__construct($name, (new VersionParser())->normalize($version), $version);
         $this->withMetadata();
         $this->withRequires();
+        $this->withSuggests();
     }
 
     protected function withMetadata(): void
@@ -60,6 +61,25 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
         ]);
     }
 
+    protected function withSuggests(): void
+    {
+        $this->setSuggests([
+            'ext-curl' => 'Performs remote request operations.'
+            'ext-dom' => 'Used to validate Text Widget content and to automatically configuring IIS7+.'
+            'ext-exif' => 'Works with metadata stored in images.'
+            'ext-fileinfo' => 'Used to detect mimetype of file uploads.'
+            'ext-hash' => 'Used for hashing, including passwords and update packages.'
+            'ext-json' => 'Used for communications with other servers.'
+            'ext-mbstring' => 'Used to properly handle UTF8 text.'
+            'ext-mysqli' => 'Connects to MySQL for database interactions.'
+            'ext-libsodium' => 'Validates Signatures and provides securely random bytes.'
+            'ext-openssl' => 'Permits SSL-based connections to other hosts.'
+            'ext-pcre' => 'Increases performance of pattern matching in code searches.'
+            'ext-imagick' => 'Provides better image quality for media uploads.'
+            'ext-xml' => 'Used for XML parsing, such as from a third-party site.'
+            'ext-zip' => 'Used for decompressing Plugins, Themes, and WordPress update packages.'
+        ]);
+    }
 
     private function makeLink(string $name, Constraint $constraint): Link
     {
