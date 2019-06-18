@@ -83,8 +83,6 @@ class WPDotOrgHTMLTest extends TestCase
             '5.2.1',
             $pass1->findPackage($pkgName, '5.2.1')->getPrettyVersion()
         );
-
-
     }
 
     public function testIsValidReleaseUrl(): void
@@ -101,17 +99,17 @@ class WPDotOrgHTMLTest extends TestCase
         $this->assertTrue(WPDotOrgHTML::isValidReleaseURL('https://wordpress.org/future/proof/wordpress-5.2.1.zip'));
 
         // smoke test
-        foreach($this->allUrls as $url) {
+        foreach ($this->allUrls as $url) {
             WPDotOrgHTML::isValidReleaseURL($url);
         }
 
-        foreach($this->validUrls as $valid) {
+        foreach ($this->validUrls as $valid) {
             $this->assertTrue(
                 WPDotOrgHTML::isValidReleaseURL($valid),
                 "expected '$valid' to be valid"
             );
         }
-        foreach($this->invalidUrls as $invalid) {
+        foreach ($this->invalidUrls as $invalid) {
             $this->assertFalse(
                 WPDotOrgHTML::isValidReleaseURL($invalid),
                 "expected '$invalid' to be invalid"
