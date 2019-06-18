@@ -34,6 +34,7 @@ jobs:
           path: coverage/
       - run: composer test:e2e
       - run: composer phpstan:analyse
+      - run: composer lint
 
 workflows:
   test:
