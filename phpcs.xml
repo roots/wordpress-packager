@@ -3,7 +3,7 @@
   <description>Roots Coding Standards</description>
 
   <!-- Scan all files in directory -->
-  <file>src/</file>
+  <file>.</file>
 
   <!-- Scan only PHP files -->
   <arg name="extensions" value="php"/>
@@ -17,6 +17,6 @@
   <!-- Show sniff codes in all reports -->
   <arg value="ns"/>
 
-  <!-- Use PSR-2 as a base -->
-  <rule ref="PSR2"/>
+  <!-- Use PSR-12 as a base -->
+  <rule ref="PSR12"/>
 </ruleset>
