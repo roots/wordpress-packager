@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+namespace Roots\WordPressPackager;
+
+use RuntimeException;
+
+require_once(__DIR__ . '/../vendor/autoload.php');
+
+$gitRemote = $argv[1] ?? null;
+if ($gitRemote === null) {
+    throw new RuntimeException('You must provide a git remote, example: $ ./bin/build git@github.com:your-name/your-repo.git');
+}
+
+$wpDotOrgHtmlUrl = $argv[2] ?? 'https://wordpress.org/download/releases/';
+
+Build::execute($gitRemote, $wpDotOrgHtmlUrl);
