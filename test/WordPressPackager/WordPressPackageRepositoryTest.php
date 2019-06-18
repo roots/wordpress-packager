@@ -48,13 +48,13 @@ class WordPressPackageRepositoryTest extends TestCase
     public function testEntry()
     {
         $this->assertCount(0, $this->blankRepo);
-        $this->assertNull($this->blankRepo->findPackage('roots/wordpress','5.2.1'));
+        $this->assertNull($this->blankRepo->findPackage('roots/wordpress', '5.2.1'));
 
         $this->assertCount(3, $this->fullRepo);
-        $this->assertNotNull($this->fullRepo->findPackage('roots/wordpress','5.2.1'));
-        $this->assertNotNull($this->fullRepo->findPackage('roots/wordpress','5.0'));
-        $this->assertNotNull($this->fullRepo->findPackage('roots/wordpress','4.0'));
+        $this->assertNotNull($this->fullRepo->findPackage('roots/wordpress', '5.2.1'));
+        $this->assertNotNull($this->fullRepo->findPackage('roots/wordpress', '5.0'));
+        $this->assertNotNull($this->fullRepo->findPackage('roots/wordpress', '4.0'));
 
-        $this->assertNull($this->fullRepo->findPackage('roots/wordpress','3.0'));
+        $this->assertNull($this->fullRepo->findPackage('roots/wordpress', '3.0'));
     }
 }

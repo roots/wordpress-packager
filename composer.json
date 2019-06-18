@@ -21,7 +21,9 @@
         ],
         "phpstan:analyse": "phpstan analyse",
         "test": "phpunit",
-        "test:e2e": "phpunit --testsuite E2E"
+        "test:e2e": "phpunit --testsuite E2E",
+        "lint": "phpcs",
+        "lint:fix": "phpcbf"
     },
     "require": {
         "ext-dom": "*",

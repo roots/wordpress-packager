@@ -110,6 +110,4 @@ class WordPressPackageTest extends TestCase
         $this->assertTrue($phpOld1->matches(new Constraint('=', '5.2.4')));
         $this->assertTrue($phpOld2->matches(new Constraint('=', '5.2.4')));
     }
-
-
 }

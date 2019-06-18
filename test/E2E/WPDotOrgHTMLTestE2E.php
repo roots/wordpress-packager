@@ -10,6 +10,4 @@ class WPDotOrgHTMLTestE2E extends TestCase
     {
         $this->assertTrue(true);
     }
-
-
 }

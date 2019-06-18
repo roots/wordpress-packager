@@ -8,15 +8,13 @@
   <!-- Scan only PHP files -->
   <arg name="extensions" value="php"/>
 
-  <!-- Ignore WordPress and Composer dependencies -->
-  <exclude-pattern>vendor/</exclude-pattern>
-
   <!-- Show colors in console -->
   <arg value="-colors"/>
 
-  <!-- Show sniff codes in all reports -->
-  <arg value="ns"/>
+  <!-- Show progress and sniff codes in all reports; -->
+  <arg value="nsp"/>
 
-  <!-- Use PSR-2 as a base -->
+  <!-- Use PSR-2 and PSR-12 as a base -->
   <rule ref="PSR2"/>
+  <rule ref="PSR12"/>
 </ruleset>
