@@ -8,25 +8,25 @@
     "packages": [
         {
             "name": "composer/ca-bundle",
-            "version": "1.1.4",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "558f321c52faeb4828c03e7dc0cfe39a09e09a2d"
+                "reference": "f26a67e397be0e5c00d7c52ec7b5010098e15ce5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/558f321c52faeb4828c03e7dc0cfe39a09e09a2d",
-                "reference": "558f321c52faeb4828c03e7dc0cfe39a09e09a2d",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/f26a67e397be0e5c00d7c52ec7b5010098e15ce5",
+                "reference": "f26a67e397be0e5c00d7c52ec7b5010098e15ce5",
                 "shasum": ""
             },
             "require": {
                 "ext-openssl": "*",
                 "ext-pcre": "*",
-                "php": "^5.3.2 || ^7.0"
+                "php": "^5.3.2 || ^7.0 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5",
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || 6.5 - 8",
                 "psr/log": "^1.0",
                 "symfony/process": "^2.5 || ^3.0 || ^4.0"
             },
@@ -60,20 +60,20 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2019-01-28T09:30:10+00:00"
+            "time": "2019-08-02T09:05:43+00:00"
         },
         {
             "name": "composer/composer",
-            "version": "1.8.6",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "19b5f66a0e233eb944f134df34091fe1c5dfcc11"
+                "reference": "314aa57fdcfc942065996f59fb73a8b3f74f3fa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/19b5f66a0e233eb944f134df34091fe1c5dfcc11",
-                "reference": "19b5f66a0e233eb944f134df34091fe1c5dfcc11",
+                "url": "https://api.github.com/repos/composer/composer/zipball/314aa57fdcfc942065996f59fb73a8b3f74f3fa5",
+                "reference": "314aa57fdcfc942065996f59fb73a8b3f74f3fa5",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +109,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -133,14 +133,14 @@
                     "homepage": "http://seld.be"
                 }
             ],
-            "description": "Composer helps you declare, manage and install dependencies of PHP projects, ensuring you have the right stack everywhere.",
+            "description": "Composer helps you declare, manage and install dependencies of PHP projects. It ensures you have the right stack everywhere.",
             "homepage": "https://getcomposer.org/",
             "keywords": [
                 "autoload",
                 "dependency",
                 "package"
             ],
-            "time": "2019-06-11T13:03:06+00:00"
+            "time": "2019-08-02T18:55:33+00:00"
         },
         {
             "name": "composer/semver",
@@ -206,16 +206,16 @@
         },
         {
             "name": "composer/spdx-licenses",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/spdx-licenses.git",
-                "reference": "a1aa51cf3ab838b83b0867b14e56fc20fbd55b3d"
+                "reference": "7ac1e6aec371357df067f8a688c3d6974df68fa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/spdx-licenses/zipball/a1aa51cf3ab838b83b0867b14e56fc20fbd55b3d",
-                "reference": "a1aa51cf3ab838b83b0867b14e56fc20fbd55b3d",
+                "url": "https://api.github.com/repos/composer/spdx-licenses/zipball/7ac1e6aec371357df067f8a688c3d6974df68fa5",
+                "reference": "7ac1e6aec371357df067f8a688c3d6974df68fa5",
                 "shasum": ""
             },
             "require": {
@@ -262,7 +262,7 @@
                 "spdx",
                 "validator"
             ],
-            "time": "2019-03-26T10:23:26+00:00"
+            "time": "2019-07-29T10:31:59+00:00"
         },
         {
             "name": "composer/xdebug-handler",
@@ -1343,16 +1343,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.3.2",
+            "version": "v4.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "b592b26a24265a35172d8a2094d8b10f22b7cc39"
+                "reference": "8b0ae5742ce9aaa8b0075665862c1ca397d1c1d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/b592b26a24265a35172d8a2094d8b10f22b7cc39",
-                "reference": "b592b26a24265a35172d8a2094d8b10f22b7cc39",
+                "url": "https://api.github.com/repos/symfony/console/zipball/8b0ae5742ce9aaa8b0075665862c1ca397d1c1d9",
+                "reference": "8b0ae5742ce9aaa8b0075665862c1ca397d1c1d9",
                 "shasum": ""
             },
             "require": {
@@ -1414,7 +1414,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-06-13T11:03:18+00:00"
+            "time": "2019-07-24T17:13:59+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -1582,16 +1582,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.3.2",
+            "version": "v4.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "33c21f7d5d3dc8a140c282854a7e13aeb5d0f91a"
+                "reference": "9638d41e3729459860bb96f6247ccb61faaa45f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/33c21f7d5d3dc8a140c282854a7e13aeb5d0f91a",
-                "reference": "33c21f7d5d3dc8a140c282854a7e13aeb5d0f91a",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/9638d41e3729459860bb96f6247ccb61faaa45f2",
+                "reference": "9638d41e3729459860bb96f6247ccb61faaa45f2",
                 "shasum": ""
             },
             "require": {
@@ -1627,7 +1627,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2019-06-13T11:03:18+00:00"
+            "time": "2019-06-28T13:16:30+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1806,7 +1806,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.3.1",
+            "version": "v4.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
