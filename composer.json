@@ -31,7 +31,7 @@
         "ext-libxml": "*",
         "composer/composer": "^1.8",
         "composer/semver": "^1.5",
-        "illuminate/support": "^5.8",
+        "illuminate/support": "^5.8 || ^8.0",
         "masterminds/html5": "^2.6",
         "symfony/css-selector": "^4.3",
         "symfony/dom-crawler": "^4.3",
