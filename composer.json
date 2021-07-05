@@ -33,7 +33,7 @@
         "composer/semver": "^1.5",
         "illuminate/support": "^5.8",
         "masterminds/html5": "^2.6",
-        "symfony/css-selector": "^4.3",
+        "symfony/css-selector": "^4.3 || ^5.0",
         "symfony/dom-crawler": "^4.3",
         "czproject/git-php": "^3.17",
         "symfony/filesystem": "^4.3",
