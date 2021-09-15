@@ -14,6 +14,16 @@ jobs:
         php-version: '8.0'
         coverage: pcov
         tools: phpunit, phpcbf, phpcs
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+    - run: composer install --prefer-dist
     - run: composer test
     - run: composer test:e2e
     - run: composer phpstan:analyse
