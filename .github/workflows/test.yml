@@ -28,3 +28,6 @@ jobs:
     - run: composer test:e2e
     - run: composer phpstan:analyse
     - run: composer lint
+    - uses: actions/upload-artifact@v2
+      with:
+        path: coverage/
