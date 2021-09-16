@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Roots\WordPressPackager\ReleaseSources;
 
 use Composer\Semver\VersionParser;

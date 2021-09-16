@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Roots\WordPressPackager\ReleaseSources;
 
 use Roots\WordPressPackager\WordPressPackageRepository;
