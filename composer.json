@@ -36,7 +36,7 @@
         "symfony/css-selector": "^4.3 || ^5.0",
         "symfony/dom-crawler": "^4.3 || ^5.0",
         "czproject/git-php": "^3.17",
-        "symfony/filesystem": "^4.3",
+        "symfony/filesystem": "^4.3 || ^5.0",
         "league/uri-schemes": "^1.2",
         "league/uri-components": "^1.8",
         "php": "^7.3"
