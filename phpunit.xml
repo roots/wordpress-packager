@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         defaultTestSuite="Unit">
-    <testsuites>
-        <testsuite name="Unit">
-            <directory suffix="Test.php">test/WordPressPackager</directory>
-        </testsuite>
-        <testsuite name="E2E">
-            <directory suffix="TestE2E.php">test/E2E</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="coverage-html" target="coverage/"/>
-        <log type="coverage-clover" target="coverage/clover.xml"/>
-        <log type="junit" target="coverage/junit.xml"/>
-    </logging>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" backupStaticAttributes="false" bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false" defaultTestSuite="Unit" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <report>
+      <clover outputFile="coverage/clover.xml"/>
+      <html outputDirectory="coverage/"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="Unit">
+      <directory suffix="Test.php">test/WordPressPackager</directory>
+    </testsuite>
+    <testsuite name="E2E">
+      <directory suffix="TestE2E.php">test/E2E</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="coverage/junit.xml"/>
+  </logging>
 </phpunit>
