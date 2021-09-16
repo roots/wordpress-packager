@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Roots\WordPressPackager;
 
-use Cz\Git\GitRepository;
+use CzProject\GitPhp\GitRepository;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;

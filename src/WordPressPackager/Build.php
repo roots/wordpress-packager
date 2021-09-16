@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Roots\WordPressPackager;
 
-use Cz\Git\GitRepository;
+use CzProject\GitPhp\Git;
 use Roots\WordPressPackager\ReleaseSources\WPDotOrgHTML;
 use Roots\WordPressPackager\Util\Directory;
 use RuntimeException;
@@ -21,7 +21,8 @@ class Build
         );
         $packageWriter = new PackageWriter($fs, $license);
         $destination = Directory::mktemp($fs);
-        $gitRepo = GitRepository::cloneRepository(
+        $git = new Git();
+        $gitRepo = $git->cloneRepository(
             $gitRemote,
             $destination
         );

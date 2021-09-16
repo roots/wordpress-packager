@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Roots\WordPressPackager;
 
 use Composer\Package\PackageInterface;
-use Cz\Git\GitRepository;
+use CzProject\GitPhp\GitRepository;
 use Symfony\Component\Filesystem\Filesystem;
 
 class Target
