@@ -92,7 +92,7 @@ class TargetTest extends TestCase
         $gitRepo->shouldHaveReceived('createTag')
                 ->with('1.2.3', [
                     '--annotate',
-                    '--message' => 'Version bump 1.2.3',
+                    '--message' => 'Version 1.2.3',
                 ])
                 ->once();
         $gitRepo->shouldHaveReceived('push')

@@ -50,10 +50,10 @@ class Target
         );
 
         $this->gitRepo->addFile($files);
-        $this->gitRepo->commit("Version bump ${version}");
+        $this->gitRepo->commit("Version ${version}");
         $this->gitRepo->createTag($version, [
             '--annotate',
-            '--message' => "Version bump ${version}",
+            '--message' => "Version ${version}",
         ]);
         $this->gitRepo->push('origin', ["refs/tags/${version}"]);
 
