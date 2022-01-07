@@ -4,11 +4,61 @@ declare(strict_types=1);
 
 require_once(dirname(__DIR__) . '/vendor/autoload.php');
 
-use Roots\WordPressPackager\Console\BuildCommand;
-use Symfony\Component\Console\Application;
+use CzProject\GitPhp\Git;
+use Roots\WordPressPackager\License;
+use Roots\WordPressPackager\Package\Package;
+use Roots\WordPressPackager\Package\Writer;
+use Roots\WordPressPackager\ReleaseSources\Concerns\ReleaseType;
+use Roots\WordPressPackager\ReleaseSources\SourceInterface;
+use Roots\WordPressPackager\Target;
+use Roots\WordPressPackager\Util\Directory;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\SingleCommandApplication;
+use Symfony\Component\Filesystem\Filesystem;
 
-$command = new BuildCommand();
-$application = new Application();
-$application->add($command);
-$application->setDefaultCommand($command->getName());
-$application->run();
+(new SingleCommandApplication())
+    ->setName('WordPress Packager')
+    ->addArgument('remote', InputArgument::REQUIRED, 'Git remote repository')
+    ->addArgument('package', InputArgument::REQUIRED, 'Package name')
+    ->addOption('source', null, InputOption::VALUE_REQUIRED, 'Release source', 'WPDotOrgAPI')
+    ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Release type', ReleaseType::Full->value)
+    ->addOption('instable', 'i', InputOption::VALUE_NONE, 'Includes instable')
+    ->addOption('license', null, InputOption::VALUE_REQUIRED, 'License author')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        $output->writeln('Running WordPress Packager helper');
+
+        $fs = new Filesystem();
+
+        if ($input->getOption('license')) {
+            $license = new License(
+                date('Y'),
+                $input->getOption('license')
+            );
+        }
+
+        $gitRepo = (new Git())->cloneRepository(
+            $input->getArgument('remote'),
+            Directory::mktemp($fs)
+        );
+
+        $target = new Target($gitRepo, new Writer($fs, $license ?? null));
+
+        $builder = new Package($input->getArgument('package'));
+        $sourceClass = '\\Roots\\WordPressPackager\\ReleaseSources\\' . $input->getOption('source');
+
+        /** @var SourceInterface $source */
+        $source = new $sourceClass($builder, ReleaseType::from($input->getOption('type')));
+        $source->fetch();
+        if ($input->getOption('instable')) {
+            $source->fetchInstable();
+        }
+        $packages = $source->get()->getPackages();
+
+        array_map(function (Package $package) use ($target): void {
+            $target->add($package);
+        }, $packages);
+    })
+    ->run();
