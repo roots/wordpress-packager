@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Roots\WordPressPackager\Util;
+namespace Roots\WordPressPackager\Tests\Util;
 
 use League\Uri\Components\HierarchicalPath as Path;
 use PHPUnit\Framework\TestCase;

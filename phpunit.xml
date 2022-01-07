@@ -11,10 +11,7 @@
   </coverage>
   <testsuites>
     <testsuite name="Unit">
-      <directory suffix="Test.php">test/WordPressPackager</directory>
-    </testsuite>
-    <testsuite name="E2E">
-      <directory suffix="TestE2E.php">test/E2E</directory>
+      <directory suffix="Test.php">tests</directory>
     </testsuite>
   </testsuites>
   <logging>

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Roots\WordPressPackager;
+namespace Roots\WordPressPackager\Tests;
 
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Roots\WordPressPackager;
+namespace Roots\WordPressPackager\Tests;
 
 use Composer\Json\JsonFile;
 use Composer\Package\Link;

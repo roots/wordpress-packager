@@ -1,6 +1,6 @@
 <?php
 
-namespace Roots\WordPressPackager\ReleaseSources;
+namespace Roots\WordPressPackager\Tests\ReleaseSources;
 
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;

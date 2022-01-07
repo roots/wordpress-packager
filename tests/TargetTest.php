@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Roots\WordPressPackager;
+namespace Roots\WordPressPackager\Tests;
 
 use CzProject\GitPhp\GitRepository;
 use Mockery;

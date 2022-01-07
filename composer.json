@@ -11,7 +11,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Roots\\": "src/"
+            "Roots\\WordPressPackager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Roots\\WordPressPackager\\Tests\\": "tests/"
         }
     },
     "scripts": {
