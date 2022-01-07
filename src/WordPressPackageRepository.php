@@ -16,7 +16,6 @@ use JsonSerializable;
  */
 class WordPressPackageRepository extends ArrayRepository implements JsonSerializable
 {
-
     /**
      * WordPressPackageRepository constructor.
      * @param WordPressPackage[] $packages
