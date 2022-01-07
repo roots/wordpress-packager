@@ -43,7 +43,7 @@ class WriterTest extends TestCase
         $filesystem->shouldHaveReceived('dumpFile')
                    ->with(
                        '/fake/path/composer.json',
-                       json_encode($composerJsonArray, JSON_PRETTY_PRINT)
+                       json_encode($composerJsonArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR)
                    )
                    ->once();
         $filesystem->shouldHaveReceived('dumpFile')
