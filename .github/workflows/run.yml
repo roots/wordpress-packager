@@ -30,6 +30,6 @@ jobs:
     - run: composer install --prefer-dist --no-dev
     - run: composer run build -- $REMOTE $PACKAGE --type=$TYPE
       env:
-        REMOTE: ${{ secret.REMOTE }}
-        PACKAGE: ${{ secret.PACKAGE }}
+        REMOTE: ${{ secrets.REMOTE }}
+        PACKAGE: ${{ secrets.PACKAGE }}
         TYPE: ${{ matrix.type }}
