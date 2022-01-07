@@ -31,9 +31,8 @@ jobs:
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
     - run: composer install --prefer-dist
-    - run: composer test
-    - run: composer phpstan:analyse
-    - run: composer lint
+    - run: composer run test
+    - run: composer run lint
     - uses: actions/upload-artifact@v2
       with:
         path: coverage/

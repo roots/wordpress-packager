@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Roots\WordPressPackager\ReleaseSources;
 
 use Composer\Package\PackageInterface;

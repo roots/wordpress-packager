@@ -6,15 +6,11 @@ namespace Roots\WordPressPackager;
 
 class License
 {
-    /** @var string */
-    protected $year;
-    /** @var string */
-    protected $author;
-
-    public function __construct(string $year, string $author)
-    {
-        $this->year = $year;
-        $this->author = $author;
+    public function __construct(
+        protected string $year,
+        protected string $author
+    ) {
+        //
     }
 
     public function getContent(): string

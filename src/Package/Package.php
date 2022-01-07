@@ -54,7 +54,7 @@ class Package extends CompletePackage implements JsonSerializable
         $this->setType('wordpress-core');
         $this->setDescription('WordPress is web software you can use to create a beautiful website or blog.');
         $this->setAuthors([
-            (object)[
+            [
                 'name' => 'WordPress Community',
                 'homepage' => 'https://wordpress.org/about/'
             ]
@@ -79,7 +79,7 @@ class Package extends CompletePackage implements JsonSerializable
 
     public function withRequires(string $minPhpVersion = null): void
     {
-        if (! $minPhpVersion) {
+        if (is_null($minPhpVersion)) {
             $minPhpVersion = self::getMinPhpVersion($this->getVersion());
         }
 
@@ -120,7 +120,7 @@ class Package extends CompletePackage implements JsonSerializable
             $this->getName(),
             $name,
             $constraint,
-            'requires ',
+            'requires',
             $constraint->getPrettyString()
         );
     }

@@ -10,19 +10,14 @@ use Roots\WordPressPackager\Package\Writer;
 
 class Target
 {
-    /** @var GitRepository */
-    protected $gitRepo;
-
-    /** @var Writer */
-    protected $packageWriter;
-
     /** @var string[] */
-    protected $gitTags;
+    protected ?array $gitTags = null;
 
-    public function __construct(GitRepository $gitRepo, Writer $packageWriter)
-    {
-        $this->gitRepo = $gitRepo;
-        $this->packageWriter = $packageWriter;
+    public function __construct(
+        protected GitRepository $gitRepo,
+        protected Writer $packageWriter
+    ) {
+        //
     }
 
     protected function getGitTags(): array

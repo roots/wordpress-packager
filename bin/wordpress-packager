@@ -2,17 +2,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Roots\WordPressPackager;
+require_once(dirname(__DIR__) . '/vendor/autoload.php');
 
-use RuntimeException;
+use Roots\WordPressPackager\Console\BuildCommand;
+use Symfony\Component\Console\Application;
 
-require_once(__DIR__ . '/../vendor/autoload.php');
-
-$gitRemote = $argv[1] ?? null;
-if ($gitRemote === null) {
-    throw new RuntimeException('You must provide a git remote, example: $ ./bin/wordpress-packager git@github.com:your-name/your-repo.git');
-}
-
-$wpDotOrgHtmlUrl = $argv[2] ?? 'https://wordpress.org/download/releases/';
-
-Build::execute($gitRemote, $wpDotOrgHtmlUrl);
+$command = new BuildCommand();
+$application = new Application();
+$application->add($command);
+$application->setDefaultCommand($command->getName());
+$application->run();
