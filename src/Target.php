@@ -43,6 +43,7 @@ class Target
         }
 
         $this->gitRepo->execute(['checkout', '--orphan', $version]);
+        $this->gitRepo->execute(['rm', '--cached', '-r', '.']);
 
         $files = $this->packageWriter->dumpFiles(
             $package,
