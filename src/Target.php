@@ -51,12 +51,12 @@ class Target
         );
 
         $this->gitRepo->addFile($files);
-        $this->gitRepo->commit("Version ${version}");
+        $this->gitRepo->commit("Version {$version}");
         $this->gitRepo->createTag($version, [
             '--annotate',
-            '--message' => "Version ${version}",
+            '--message' => "Version {$version}",
         ]);
-        $this->gitRepo->push('origin', ["refs/tags/${version}"]);
+        $this->gitRepo->push('origin', ["refs/tags/{$version}"]);
 
         $this->gitTags[] = $version;
     }
