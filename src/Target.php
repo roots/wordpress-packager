@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Roots\WordPressPackager;
 
-use Composer\Package\PackageInterface;
 use CzProject\GitPhp\GitRepository;
-use Symfony\Component\Filesystem\Filesystem;
+use Roots\WordPressPackager\Package\Package;
+use Roots\WordPressPackager\Package\Writer;
 
 class Target
 {
     /** @var GitRepository */
     protected $gitRepo;
 
-    /** @var PackageWriter */
+    /** @var Writer */
     protected $packageWriter;
 
     /** @var string[] */
     protected $gitTags;
 
-    public function __construct(GitRepository $gitRepo, PackageWriter $packageWriter)
+    public function __construct(GitRepository $gitRepo, Writer $packageWriter)
     {
         $this->gitRepo = $gitRepo;
         $this->packageWriter = $packageWriter;
@@ -40,7 +40,7 @@ class Target
         return in_array($tag, $this->getGitTags(), true);
     }
 
-    public function add(WordPressPackage $package): void
+    public function add(Package $package): void
     {
         $version = $package->getPrettyVersion();
         if ($this->hasGitTag($version)) {

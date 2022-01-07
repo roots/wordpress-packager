@@ -2,26 +2,51 @@
 
 declare(strict_types=1);
 
-namespace Roots\WordPressPackager;
+namespace Roots\WordPressPackager\Package;
 
 use Composer\Package\CompletePackage;
 use Composer\Package\Dumper\ArrayDumper;
 use Composer\Package\Link;
+use Composer\Package\Version\VersionParser;
 use Composer\Semver\Comparator as SemverComparator;
 use Composer\Semver\Constraint\Constraint;
 use Composer\Semver\Semver;
-use Composer\Semver\VersionParser;
 use JsonSerializable;
-use RuntimeException;
 
-class WordPressPackage extends CompletePackage implements JsonSerializable
+class Package extends CompletePackage implements JsonSerializable
 {
-    public function __construct(string $name, string $version)
+    public function __construct(string $name)
     {
-        parent::__construct($name, (new VersionParser())->normalize($version), $version);
+        parent::__construct(
+            $name,
+            '0.0.0',
+            '0.0.0',
+        );
+        
         $this->withMetadata();
         $this->withRequires();
         $this->withSuggests();
+    }
+
+    /**
+     * Clone the package.
+     *
+     * @return static
+     */
+    public function clone(): self
+    {
+        return clone $this;
+    }
+
+    public function withVersion(string $version): self
+    {
+        $this->version = (new VersionParser())->normalize($version);
+        $this->prettyVersion = $version;
+
+        $this->stability = VersionParser::parseStability($version);
+        $this->dev = $this->stability === 'dev';
+        
+        return $this;
     }
 
     protected function withMetadata(): void
@@ -52,13 +77,15 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
         ]);
     }
 
-    protected function withRequires(): void
+    public function withRequires(string $minPhpVersion = null): void
     {
-        $minPhpVersion = self::getMinPhpVersion($this->getVersion());
+        if (! $minPhpVersion) {
+            $minPhpVersion = self::getMinPhpVersion($this->getVersion());
+        }
 
         $this->setRequires([
-            $this->makeLink('php', new Constraint('>=', $minPhpVersion)),
-            $this->makeLink('roots/wordpress-core-installer', new Constraint('>=', '1.0.0')),
+            'php' => $this->makeLink('php', new Constraint('>=', $minPhpVersion)),
+            'roots/wordpress-core-installer' => $this->makeLink('roots/wordpress-core-installer', new Constraint('>=', '1.0')),
         ]);
     }
 
@@ -132,10 +159,10 @@ class WordPressPackage extends CompletePackage implements JsonSerializable
 
     /**
      * https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html
-     * @param WordPressPackage $b
+     * @param Package $b
      * @return int
      */
-    public function compareTo(WordPressPackage $b): int
+    public function compareTo(Package $b): int
     {
         $a = $this;
         $aVer = $a->getVersion();

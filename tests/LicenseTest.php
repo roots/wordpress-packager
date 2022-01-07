@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roots\WordPressPackager\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Roots\WordPressPackager\License;
 
 class LicenseTest extends TestCase
 {

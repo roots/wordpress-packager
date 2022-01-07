@@ -2,14 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Roots\WordPressPackager\Tests;
+namespace Roots\WordPressPackager\Tests\Package;
 
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use Roots\WordPressPackager\License;
+use Roots\WordPressPackager\Package\Package;
+use Roots\WordPressPackager\Package\Writer;
 use Symfony\Component\Filesystem\Filesystem;
 
-class PackageWriterTest extends TestCase
+class WriterTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
@@ -19,7 +22,7 @@ class PackageWriterTest extends TestCase
             'name' => 'xxx/yyy',
         ];
 
-        $package = Mockery::spy(WordPressPackage::class);
+        $package = Mockery::spy(Package::class);
         $package->shouldReceive('jsonSerialize')
                 ->withNoArgs()
                 ->once()
@@ -33,7 +36,7 @@ class PackageWriterTest extends TestCase
                 ->once()
                 ->andReturn('I am license content');
 
-        $packageWriter = new PackageWriter($filesystem, $license);
+        $packageWriter = new Writer($filesystem, $license);
 
         $actuals = $packageWriter->dumpFiles($package, '/fake/path');
 

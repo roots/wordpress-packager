@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Roots\WordPressPackager;
 
 use CzProject\GitPhp\Git;
+use Roots\WordPressPackager\Package\Package;
+use Roots\WordPressPackager\Package\Writer;
 use Roots\WordPressPackager\ReleaseSources\WPDotOrgHTML;
 use Roots\WordPressPackager\Util\Directory;
 use RuntimeException;
@@ -12,36 +14,32 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Build
 {
-    public static function execute(string $gitRemote, string $wpDotOrgHtmlUrl): void
+    public static function execute(string $gitRemote): void
     {
         $fs = new Filesystem();
         $license = new License(
             date('Y'),
             'Roots'
         );
-        $packageWriter = new PackageWriter($fs, $license);
-        $destination = Directory::mktemp($fs);
-        $git = new Git();
-        $gitRepo = $git->cloneRepository(
+        $gitRepo = (new Git())->cloneRepository(
             $gitRemote,
-            $destination
+            Directory::mktemp($fs)
         );
-        $target = new Target($gitRepo, $packageWriter);
-
-        array_map(function (WordPressPackage $package) use ($target): void {
+        $target = new Target($gitRepo, new Writer($fs, $license));
+        
+        array_map(function (Package $package) use ($target): void {
             $target->add($package);
-        }, static::getPackages($wpDotOrgHtmlUrl));
+        }, static::getPackages());
     }
 
-    protected static function getPackages(string $wpDotOrgHtmlUrl): array
+    protected static function getPackages(): array
     {
-        $html = file_get_contents($wpDotOrgHtmlUrl);
-        if (! is_string($html)) {
-            throw new RuntimeException("Failed to download HTML from $wpDotOrgHtmlUrl");
-        }
-        $wpDotOrgHtmlUrl = new WPDotOrgHTML($html);
+        $builder = new Package("roots/wordpress-dotorg");
+        $wpDotOrgHtmlUrl = new WPDotOrgHTML($builder);
 
-        return $wpDotOrgHtmlUrl->getRepo()
-                               ->getPackages();
+        return $wpDotOrgHtmlUrl
+            ->fetch()
+            ->get()
+            ->getPackages();
     }
 }

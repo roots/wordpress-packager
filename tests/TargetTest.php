@@ -8,6 +8,9 @@ use CzProject\GitPhp\GitRepository;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use Roots\WordPressPackager\Package\Package;
+use Roots\WordPressPackager\Package\Writer;
+use Roots\WordPressPackager\Target;
 
 class TargetTest extends TestCase
 {
@@ -24,13 +27,13 @@ class TargetTest extends TestCase
                 ->once()
                 ->andReturn(['1.2.3']);
 
-        $package = Mockery::spy(WordPressPackage::class);
+        $package = Mockery::spy(Package::class);
         $package->shouldReceive('getPrettyVersion')
                 ->withNoArgs()
                 ->once()
                 ->andReturn('1.2.3');
 
-        $packageWriter = Mockery::spy(PackageWriter::class);
+        $packageWriter = Mockery::spy(Writer::class);
 
         $target = new Target($gitRepo, $packageWriter);
 
@@ -55,13 +58,13 @@ class TargetTest extends TestCase
                 ->once()
                 ->andReturn('/fake/path');
 
-        $package = Mockery::spy(WordPressPackage::class);
+        $package = Mockery::spy(Package::class);
         $package->shouldReceive('getPrettyVersion')
                 ->withNoArgs()
                 ->once()
                 ->andReturn('1.2.3');
 
-        $packageWriter = Mockery::spy(PackageWriter::class);
+        $packageWriter = Mockery::spy(Writer::class);
         $packageWriter->shouldReceive('dumpFiles')
                 ->with($package, '/fake/path')
                 ->once()

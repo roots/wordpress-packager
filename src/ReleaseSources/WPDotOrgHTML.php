@@ -3,7 +3,6 @@
 namespace Roots\WordPressPackager\ReleaseSources;
 
 use Composer\Semver\VersionParser;
-use DOMDocument;
 use DOMElement;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -11,24 +10,21 @@ use InvalidArgumentException;
 use League\Uri\Components\HierarchicalPath as Path;
 use League\Uri\Components\Host;
 use League\Uri\Http;
-use Roots\WordPressPackager\WordPressPackage;
-use Roots\WordPressPackager\WordPressPackageRepository;
+use PHPUnit\TextUI\RuntimeException;
+use Roots\WordPressPackager\Package\Package;
+use Roots\WordPressPackager\Package\Repository;
 use Symfony\Component\DomCrawler\Crawler;
 
 class WPDotOrgHTML implements SourceInterface
 {
-    /**
-     * @var string
-     */
-    protected $html;
+    const ENDPOINT = 'https://wordpress.org/download/releases/';
+    
+    protected \Countable $data;
 
-    /**
-     * WPDotOrgHTML constructor.
-     * @param string $html
-     */
-    public function __construct(string $html)
-    {
-        $this->html = $html;
+    public function __construct(
+        protected Package $packageBase
+    ) {
+        //
     }
 
     private static function isValidBasename(string $basename): bool
@@ -49,7 +45,7 @@ class WPDotOrgHTML implements SourceInterface
         $host = new Host($httpUrl->getHost());
         $basename = self::getBasename($httpUrl);
         $isHttps = $httpUrl->getScheme() === 'https';
-        $wpOrgDomain = $host->getRegistrableDomain() === 'wordpress.org';
+        $wpOrgDomain = $host->getContent() === 'wordpress.org';
 
         if ($basename === '' || !$isHttps || !$wpOrgDomain || !self::isValidBasename($basename)) {
             return false;
@@ -81,22 +77,20 @@ class WPDotOrgHTML implements SourceInterface
     private static function isVersion(?string $version): bool
     {
         try {
-            return is_string($version) ? (bool)(new VersionParser())->normalize($version) : false;
+            return is_string($version) && (new VersionParser())->normalize($version);
         } catch (\UnexpectedValueException $_) {
             return false;
         }
     }
 
-    protected static function packageFromUrl(string $releaseUrl): WordPressPackage
+    protected function packageFromUrl(string $releaseUrl): Package
     {
-        // TODO: don't hardcode package org
-        $org = 'roots';
-
-        $name = "$org/wordpress-dotorg";
         /** @var string $version Version is guaranteed because of `isValidReleaseURL` above. */
         $version = self::getVersionFromURL($releaseUrl);
 
-        $package = new WordPressPackage($name, $version);
+        $package = $this->packageBase
+            ->clone()
+            ->withVersion($version);
 
         $package->setDistType('zip');
         $package->setDistUrl($releaseUrl);
@@ -104,20 +98,28 @@ class WPDotOrgHTML implements SourceInterface
         return $package;
     }
 
-    public function getRepo(): WordPressPackageRepository
+    public function fetch(string $endpoint = null): self
     {
-        $html = $this->html;
+        $endpoint = $endpoint ?? $this::ENDPOINT;
+        
+        $html = file_get_contents($endpoint);
+        
+        if (! is_string($html)) {
+            throw new RuntimeException("Failed to download HTML from {$endpoint}");
+        }
         if ($html === '') {
             throw new InvalidArgumentException('blank html');
         }
 
-        $zipLinks = (new Crawler($html))->filter('a[href$=".zip"]');
-        if (count($zipLinks) < 1) {
-            return new WordPressPackageRepository([]);
-        }
+        $this->data = (new Crawler($html))->filter('a[href$=".zip"]');
+        
+        return $this;
+    }
 
-        return new WordPressPackageRepository(
-            Collection::make($zipLinks)
+    public function get(): Repository
+    {
+        return new Repository(
+            Collection::make($this->data)
                 ->map(function (DOMElement $zipLink): ?string {
                     $href = $zipLink->getAttribute('href');
                     if (self::isValidReleaseURL($href)) {
@@ -128,7 +130,7 @@ class WPDotOrgHTML implements SourceInterface
                 ->filter()
                 ->unique()
                 ->map(function ($url) {
-                    return self::packageFromUrl($url);
+                    return $this->packageFromUrl($url);
                 })
                 ->toArray()
         );

@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Roots\WordPressPackager;
+namespace Roots\WordPressPackager\Package;
 
+use Roots\WordPressPackager\License;
 use Symfony\Component\Filesystem\Filesystem;
 
-class PackageWriter
+class Writer
 {
     /** @var Filesystem */
     protected $filesystem;
@@ -19,7 +20,7 @@ class PackageWriter
         $this->license = $license;
     }
 
-    public function dumpFiles(WordPressPackage $package, string $dir): array
+    public function dumpFiles(Package $package, string $dir): array
     {
         $composerJsonContent = json_encode(
             $package,

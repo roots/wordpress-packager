@@ -1,6 +1,6 @@
 <?php
 
-namespace Roots\WordPressPackager\Tests;
+namespace Roots\WordPressPackager\Tests\Package;
 
 use Composer\Json\JsonFile;
 use Composer\Package\Link;
@@ -9,41 +9,30 @@ use Composer\Semver\Constraint\ConstraintInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
+use Roots\WordPressPackager\Package\Package;
 
-class WordPressPackageTest extends TestCase
+class PacakgeTest extends TestCase
 {
-    /**
-     * @var WordPressPackage
-     */
-    public $pkgA;
-    /**
-     * @var WordPressPackage
-     */
-    public $pkgAAlpha;
-    /**
-     * @var WordPressPackage
-     */
-    public $pkgB;
-    /**
-     * @var WordPressPackage
-     */
-    public $pkgBAlpha;
-    /**
-     * @var WordPressPackage
-     */
-    public $pkgC;
+    public Package $pkgA;
+    public Package $pkgAAlpha;
+    public Package $pkgB;
+    public Package $pkgBAlpha;
+    public Package $pkgC;
 
-    public $jsonFile;
+    public string $jsonFile;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->pkgA = new WordPressPackage('roots/wordpress', '5.2.1');
-        $this->pkgB = new WordPressPackage('roots/wordpress', '5.2.1');
-        $this->pkgC = new WordPressPackage('roots/wordpress', '5.0');
+        
+        $builder = new Package('roots/wordpress');
+        
+        $this->pkgA = $builder->clone()->withVersion('5.2.1');
+        $this->pkgB = $builder->clone()->withVersion('5.2.1');
+        $this->pkgC = $builder->clone()->withVersion('5.0');
 
-        $this->pkgAAlpha = new WordPressPackage('roots/wordpress-a', '5.2.1');
-        $this->pkgBAlpha = new WordPressPackage('roots/wordpress-b', '5.2.1');
+        $this->pkgAAlpha = (new Package('roots/wordpress-a'))->withVersion('5.2.1');
+        $this->pkgBAlpha = (new Package('roots/wordpress-b'))->withVersion('5.2.1');
 
         $this->jsonFile = tempnam('/tmp', Str::slug(self::class));
     }
@@ -91,18 +80,21 @@ class WordPressPackageTest extends TestCase
 
     public function testMinPhpVersion()
     {
-        $getPhpPackage = function (WordPressPackage $p): ConstraintInterface {
+        $getPhpPackage = function (Package $p): ConstraintInterface {
             /** @var Link $link */
             $link = Collection::make($p->getRequires())->first(function (Link $l) {
                 return $l->getTarget() === 'php';
             });
             return $link->getConstraint();
         };
-        $phpNew1 = $getPhpPackage(new WordPressPackage('roots/wordpress', '5.2.1'));
-        $phpNew2 = $getPhpPackage(new WordPressPackage('roots/wordpress', '5.2'));
-        $phpNew3 = $getPhpPackage(new WordPressPackage('roots/wordpress', '5.2-beta1'));
-        $phpOld1 = $getPhpPackage(new WordPressPackage('roots/wordpress', '5.1'));
-        $phpOld2 = $getPhpPackage(new WordPressPackage('roots/wordpress', '4.0'));
+        
+        $builder = new Package('roots/wordpress');
+        
+        $phpNew1 = $getPhpPackage($builder->clone()->withVersion('5.2.1'));
+        $phpNew2 = $getPhpPackage($builder->clone()->withVersion('5.2'));
+        $phpNew3 = $getPhpPackage($builder->clone()->withVersion('5.2-beta1'));
+        $phpOld1 = $getPhpPackage($builder->clone()->withVersion('5.1'));
+        $phpOld2 = $getPhpPackage($builder->clone()->withVersion('4.0'));
 
         $this->assertTrue($phpNew1->matches(new Constraint('=', '5.6.20')));
         $this->assertTrue($phpNew2->matches(new Constraint('=', '5.6.20')));

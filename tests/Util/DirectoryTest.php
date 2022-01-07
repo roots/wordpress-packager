@@ -6,6 +6,7 @@ namespace Roots\WordPressPackager\Tests\Util;
 
 use League\Uri\Components\HierarchicalPath as Path;
 use PHPUnit\Framework\TestCase;
+use Roots\WordPressPackager\Util\Directory;
 use Symfony\Component\Filesystem\Filesystem;
 
 class DirectoryTest extends TestCase
@@ -13,7 +14,7 @@ class DirectoryTest extends TestCase
     public function testMktemp()
     {
         $filesystem = $this->getMockBuilder(Filesystem::class)
-                           ->setMethods(['mkdir'])
+                           ->onlyMethods(['mkdir'])
                            ->getMock();
 
         $filesystem->expects($this->once())
