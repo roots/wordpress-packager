@@ -32,7 +32,7 @@ class WPDotOrgAPI implements SourceInterface
             ->withVersion($release->version);
 
         $package->setDistType('zip');
-        $package->setDistUrl($release->packages->{$this->type->value});
+        $package->setDistUrl($release->packages->{$this->type->apiName()});
         $package->withRequires($release->php_version);
 
         return $package;
@@ -57,7 +57,7 @@ class WPDotOrgAPI implements SourceInterface
     {
         return new Repository(
             Collection::make($this->data)
-                      ->filter(fn($release) => $release->response === 'autoupdate' && $release->packages->{$this->type->value})
+                      ->filter(fn($release) => $release->response === 'autoupdate' && $release->packages->{$this->type->apiName()})
                       ->map(fn($release) => $this->packageFromObject($release))
                       ->unique()
                       ->toArray()
