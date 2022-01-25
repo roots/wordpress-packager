@@ -39,26 +39,31 @@ use Symfony\Component\Filesystem\Filesystem;
             );
         }
 
-        $gitRepo = (new Git())->cloneRepository(
-            $input->getArgument('remote'),
-            Directory::mktemp($fs)
-        );
+        try {
+            $gitRepo = (new Git())->cloneRepository(
+                $input->getArgument('remote'),
+                Directory::mktemp($fs)
+            );
 
-        $target = new Target($gitRepo, new Writer($fs, $license ?? null));
+            $target = new Target($gitRepo, new Writer($fs, $license ?? null));
 
-        $builder = new Package($input->getArgument('package'));
-        $sourceClass = '\\Roots\\WordPressPackager\\ReleaseSources\\' . $input->getOption('source');
+            $builder = new Package($input->getArgument('package'));
+            $sourceClass = '\\Roots\\WordPressPackager\\ReleaseSources\\' . $input->getOption('source');
 
-        /** @var SourceInterface $source */
-        $source = new $sourceClass($builder, ReleaseType::from($input->getOption('type')));
-        $source->fetch();
-        if ($input->getOption('instable')) {
-            $source->fetchInstable();
+            /** @var SourceInterface $source */
+            $source = new $sourceClass($builder, ReleaseType::from($input->getOption('type')));
+            $source->fetch();
+            if ($input->getOption('instable')) {
+                $source->fetchInstable();
+            }
+            $packages = $source->get()->getPackages();
+
+            array_map(function (Package $package) use ($target): void {
+                $target->add($package);
+            }, $packages);
+        } catch (\CzProject\GitPhp\GitException $e) {
+            var_dump($e->getRunnerResult()->toText());
+            throw $e;
         }
-        $packages = $source->get()->getPackages();
-
-        array_map(function (Package $package) use ($target): void {
-            $target->add($package);
-        }, $packages);
     })
     ->run();
