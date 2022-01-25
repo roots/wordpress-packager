@@ -15,7 +15,7 @@ class WPDotOrgAPI implements SourceInterface
 {
     const ENDPOINT = 'https://api.wordpress.org/core/version-check/1.7/';
 
-    protected bool $instable = false;
+    protected bool $unstable = false;
     protected array $data = [];
 
     public function __construct(
@@ -38,7 +38,7 @@ class WPDotOrgAPI implements SourceInterface
         return $package;
     }
     
-    public function fetchInstable(string $endpoint = null): void
+    public function fetchUnstable(string $endpoint = null): void
     {
         $this->fetch(($endpoint ?? $this::ENDPOINT) . '?channel=beta');
     }

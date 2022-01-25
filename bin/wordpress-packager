@@ -25,7 +25,7 @@ use Symfony\Component\Filesystem\Filesystem;
     ->addArgument('package', InputArgument::REQUIRED, 'Package name')
     ->addOption('source', null, InputOption::VALUE_REQUIRED, 'Release source', 'WPDotOrgAPI')
     ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Release type', ReleaseType::Full->value)
-    ->addOption('instable', 'i', InputOption::VALUE_NONE, 'Includes instable')
+    ->addOption('unstable', 'u', InputOption::VALUE_NONE, 'Includes unstable releases')
     ->addOption('license', null, InputOption::VALUE_REQUIRED, 'License author')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         $output->writeln('Running WordPress Packager helper');
@@ -53,8 +53,8 @@ use Symfony\Component\Filesystem\Filesystem;
             /** @var SourceInterface $source */
             $source = new $sourceClass($builder, ReleaseType::from($input->getOption('type')));
             $source->fetch();
-            if ($input->getOption('instable')) {
-                $source->fetchInstable();
+            if ($input->getOption('unstable')) {
+                $source->fetchUnstable();
             }
             $packages = $source->get()->getPackages();
 
