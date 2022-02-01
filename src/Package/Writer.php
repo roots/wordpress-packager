@@ -16,6 +16,9 @@ class Writer
         //
     }
 
+    /**
+     * @return array<string>
+     */
     public function dumpFiles(Package $package, string $dir): array
     {
         $composerJsonContent = json_encode(

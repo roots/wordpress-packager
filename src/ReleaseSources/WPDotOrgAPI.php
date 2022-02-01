@@ -16,6 +16,8 @@ class WPDotOrgAPI implements SourceInterface
     const ENDPOINT = 'https://api.wordpress.org/core/version-check/1.7/';
 
     protected bool $unstable = false;
+
+    /** @var array<string, mixed> */
     protected array $data = [];
 
     public function __construct(
@@ -37,17 +39,17 @@ class WPDotOrgAPI implements SourceInterface
 
         return $package;
     }
-    
+
     public function fetchUnstable(string $endpoint = null): void
     {
         $this->fetch(($endpoint ?? $this::ENDPOINT) . '?channel=beta');
     }
-    
+
     public function fetch(string $endpoint = null): self
     {
         $this->data = array_merge(
             $this->data,
-            json_decode(file_get_contents($endpoint ?? $this::ENDPOINT))->offers
+            json_decode((string) file_get_contents($endpoint ?? $this::ENDPOINT))->offers
         );
 
         return $this;

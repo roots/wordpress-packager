@@ -20,6 +20,9 @@ class Target
         //
     }
 
+    /**
+     * @return array<string>
+     */
     protected function getGitTags(): array
     {
         if ($this->gitTags === null) {

@@ -22,7 +22,7 @@ class Package extends CompletePackage implements JsonSerializable
             '0.0.0',
             '0.0.0',
         );
-        
+
         $this->withMetadata();
         $this->withRequires();
         $this->withSuggests();
@@ -45,7 +45,7 @@ class Package extends CompletePackage implements JsonSerializable
 
         $this->stability = VersionParser::parseStability($version);
         $this->dev = $this->stability === 'dev';
-        
+
         return $this;
     }
 
@@ -144,6 +144,9 @@ class Package extends CompletePackage implements JsonSerializable
         return '5.6.20';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         $dump = (new ArrayDumper())->dump($this);
