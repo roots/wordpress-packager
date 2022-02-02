@@ -693,7 +693,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -747,7 +747,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -795,7 +795,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -841,16 +841,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v8.81.0",
+            "version": "v8.82.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "fb33fd4bbcc075f641d5576b700a1c3d962acef0"
+                "reference": "910c5eb5d506013fdf60f9dc68c5512711857558"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/fb33fd4bbcc075f641d5576b700a1c3d962acef0",
-                "reference": "fb33fd4bbcc075f641d5576b700a1c3d962acef0",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/910c5eb5d506013fdf60f9dc68c5512711857558",
+                "reference": "910c5eb5d506013fdf60f9dc68c5512711857558",
                 "shasum": ""
             },
             "require": {
@@ -905,7 +905,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-01-25T16:10:28+00:00"
+            "time": "2022-01-28T16:29:10+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -5174,5 +5174,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
