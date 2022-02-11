@@ -43,8 +43,16 @@ class Package extends CompletePackage implements JsonSerializable
         $this->version = (new VersionParser())->normalize($version);
         $this->prettyVersion = $version;
 
-        $this->stability = VersionParser::parseStability($version);
+        $this->stability = VersionParser::parseStability($this->version);
         $this->dev = $this->stability === 'dev';
+
+        $this->setProvides([
+            'wordpress/core-implementation' => $this->makeLink(
+                'wordpress/core-implementation',
+                new Constraint(Constraint::STR_OP_EQ, $this->version),
+                Link::TYPE_PROVIDE
+            )
+        ]);
 
         return $this;
     }
@@ -84,8 +92,11 @@ class Package extends CompletePackage implements JsonSerializable
         }
 
         $this->setRequires([
-            'php' => $this->makeLink('php', new Constraint('>=', $minPhpVersion)),
-            'roots/wordpress-core-installer' => $this->makeLink('roots/wordpress-core-installer', new Constraint('>=', '1.0')),
+            'php' => $this->makeLink('php', new Constraint(Constraint::STR_OP_GE, $minPhpVersion)),
+            'roots/wordpress-core-installer' => $this->makeLink(
+                'roots/wordpress-core-installer',
+                new Constraint(Constraint::STR_OP_GE, '1.0')
+            ),
         ]);
     }
 
@@ -114,13 +125,13 @@ class Package extends CompletePackage implements JsonSerializable
         ]);
     }
 
-    private function makeLink(string $name, Constraint $constraint): Link
+    private function makeLink(string $name, Constraint $constraint, string $type = Link::TYPE_REQUIRE): Link
     {
         return new Link(
             $this->getName(),
             $name,
             $constraint,
-            'requires',
+            $type,
             $constraint->getPrettyString()
         );
     }
