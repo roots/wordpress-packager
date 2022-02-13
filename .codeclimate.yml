@@ -3,3 +3,4 @@ version: "2"
 plugins:
   phpcodesniffer:
     enabled: true
+    channel: beta

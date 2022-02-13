@@ -24,6 +24,7 @@ class Package extends CompletePackage implements JsonSerializable
         );
 
         $this->withMetadata();
+        $this->withLinks();
         $this->withRequires();
         $this->withSuggests();
     }
@@ -64,8 +65,12 @@ class Package extends CompletePackage implements JsonSerializable
             'blog',
             'cms'
         ]);
-        $this->setHomepage('https://wordpress.org/');
         $this->setLicense(['GPL-2.0-or-later']);
+    }
+
+    protected function withLinks(): void
+    {
+        $this->setHomepage('https://wordpress.org/');
         $this->setSupport([
             'issues' => 'https://core.trac.wordpress.org/',
             'forum' => 'https://wordpress.org/support/',
