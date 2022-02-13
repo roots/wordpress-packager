@@ -58,7 +58,10 @@ class WPDotOrgAPI implements SourceInterface
     {
         return new Repository(
             Collection::make($this->data)
-                      ->filter(fn($release) => $release->response === 'autoupdate' && $release->packages->{$this->type->apiName()})
+                      ->filter(
+                          fn($release) => $release->response === 'autoupdate'
+                              && $release->packages->{$this->type->apiName()}
+                      )
                       ->map(fn($release) => $this->packageFromObject($release))
                       ->unique()
                       ->toArray()
