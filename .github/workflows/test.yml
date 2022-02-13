@@ -10,8 +10,8 @@ on:
       - master
 
 jobs:
-  php:
-    name: PHP
+  test:
+    name: Tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
