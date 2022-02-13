@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
 use Roots\WordPressPackager\Package\Package;
 
-class PacakgeTest extends TestCase
+class PackageTest extends TestCase
 {
     public Package $pkgA;
     public Package $pkgAAlpha;
