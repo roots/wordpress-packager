@@ -1,7 +1,0 @@
-https://wordpress.org/wordpress-0.71-gold.zip
-https://wordpress.org/wordpress-1.0-platinum.zip
-https://wordpress.org/wordpress-1.0.1-miles.zip
-https://wordpress.org/wordpress-1.0.2-blakey.zip
-https://wordpress.org/wordpress-1.2-delta.zip
-https://wordpress.org/wordpress-1.2-mingus.zip
-https://wordpress.org/wordpress-1.5-strayhorn.zip

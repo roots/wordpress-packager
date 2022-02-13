@@ -1,0 +1,49 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 * * * *'
+
+jobs:
+  packager:
+    name: ${{ matrix.release-type }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        release-type:
+          - full
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache PHP dependencies
+        uses: actions/cache@v2
+        id: actions-cache
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - run: composer install --prefer-dist --no-dev
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "$GITHUB_ACTOR"
+          git config --global user.email "$EMAIL"
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+
+      - name: Run
+        run: composer run build -- $REMOTE $PACKAGE --type=$TYPE --unstable
+        env:
+          REMOTE: https://${{ github.actor }}:${{ secrets.TOKEN }}@github.com/${{ github.repository_owner }}/${{ secrets.PACKAGE_NAME }}.git
+          PACKAGE: ${{ github.repository_owner }}/${{ secrets.PACKAGE_NAME }}
+          TYPE: ${{ matrix.release-type }}

@@ -1,6 +1,15 @@
-# wordpress-packager
+# WordPress Packager
 
-[![CI](https://img.shields.io/github/workflow/status/roots/wordpress-packager/Main?style=flat-square)](https://github.com/roots/wordpress-packager/actions)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=roots/wordpress-packager)](https://dependabot.com)
+> Helper to generate WordPress Composer packages
 
-generates roots/wordpress composer package
+[![Test](https://github.com/roots/wordpress-packager/actions/workflows/test.yml/badge.svg)](https://github.com/roots/wordpress-packager/actions/workflows/test.yml)
+
+## About
+
+This package helps to generate Composer packages for any WordPress release.
+
+## Usage
+
+```bash
+$ vendor/bin/wordpress-packager [--source SOURCE] [-t|--type TYPE] [-u|--unstable] [--license LICENSE] [--] <remote> <package>
+```
