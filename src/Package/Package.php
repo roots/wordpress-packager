@@ -19,7 +19,7 @@ class Package extends CompletePackage implements JsonSerializable
     {
         parent::__construct(
             $name,
-            '0.0.0',
+            '0.0.0.0',
             '0.0.0',
         );
 
@@ -84,11 +84,20 @@ class Package extends CompletePackage implements JsonSerializable
         }
 
         $this->setRequires([
-            'php' => $this->makeLink('php', new Constraint(Constraint::STR_OP_GE, $minPhpVersion)),
-            'roots/wordpress-core-installer' => $this->makeLink(
-                'roots/wordpress-core-installer',
-                new Constraint(Constraint::STR_OP_GE, '1.0')
+            'php' => new Link(
+                $this->getName(),
+                'php',
+                $phpConstraint = new Constraint(Constraint::STR_OP_GE, $minPhpVersion),
+                Link::TYPE_REQUIRE,
+                $phpConstraint->getPrettyString()
             ),
+            'roots/wordpress-core-installer' =>  new Link(
+                $this->getName(),
+                'roots/wordpress-core-installer',
+                new Constraint(Constraint::STR_OP_GE, '1.0.0'),
+                Link::TYPE_REQUIRE,
+                '^1.0'
+            )
         ]);
     }
 
@@ -132,17 +141,6 @@ class Package extends CompletePackage implements JsonSerializable
             'ext-xml' => 'Used for XML parsing, such as from a third-party site.',
             'ext-zip' => 'Used for decompressing Plugins, Themes, and WordPress update packages.',
         ]);
-    }
-
-    private function makeLink(string $name, Constraint $constraint, string $type = Link::TYPE_REQUIRE): Link
-    {
-        return new Link(
-            $this->getName(),
-            $name,
-            $constraint,
-            $type,
-            $constraint->getPrettyString()
-        );
     }
 
     /**
