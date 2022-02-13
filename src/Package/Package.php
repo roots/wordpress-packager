@@ -46,14 +46,6 @@ class Package extends CompletePackage implements JsonSerializable
         $this->stability = VersionParser::parseStability($this->version);
         $this->dev = $this->stability === 'dev';
 
-        $this->setProvides([
-            'wordpress/core-implementation' => $this->makeLink(
-                'wordpress/core-implementation',
-                new Constraint(Constraint::STR_OP_EQ, $this->version),
-                Link::TYPE_PROVIDE
-            )
-        ]);
-
         return $this;
     }
 
@@ -97,6 +89,23 @@ class Package extends CompletePackage implements JsonSerializable
                 'roots/wordpress-core-installer',
                 new Constraint(Constraint::STR_OP_GE, '1.0')
             ),
+        ]);
+    }
+
+    public function withProvides(): void
+    {
+        if ($this->version === '0.0.0.0') {
+            throw new \Exception('The version must be set before setting implementations provided');
+        }
+
+        $this->setProvides([
+            'wordpress/core-implementation' => new Link(
+                $this->getName(),
+                'wordpress/core-implementation',
+                new Constraint(Constraint::STR_OP_EQ, $this->version),
+                Link::TYPE_PROVIDE,
+                $this->prettyVersion
+            )
         ]);
     }
 

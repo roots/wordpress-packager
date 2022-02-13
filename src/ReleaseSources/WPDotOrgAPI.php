@@ -36,6 +36,7 @@ class WPDotOrgAPI implements SourceInterface
         $package->setDistType('zip');
         $package->setDistUrl($release->packages->{$this->type->apiName()});
         $package->withRequires($release->php_version);
+        $package->withProvides();
 
         return $package;
     }
