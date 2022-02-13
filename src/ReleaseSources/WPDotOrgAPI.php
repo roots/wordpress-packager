@@ -15,8 +15,6 @@ class WPDotOrgAPI implements SourceInterface
 {
     const ENDPOINT = 'https://api.wordpress.org/core/version-check/1.7/';
 
-    protected bool $unstable = false;
-
     /** @var array<string, mixed> */
     protected array $data = [];
 
