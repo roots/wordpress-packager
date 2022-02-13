@@ -49,5 +49,11 @@
         "source": "https://core.trac.wordpress.org/browser",
         "docs": "https://developer.wordpress.org/",
         "rss": "https://wordpress.org/news/feed/"
-    }
+    },
+    "funding": [
+        {
+            "type": "other",
+            "url": "https://wordpressfoundation.org/donate/"
+        }
+    ]
 }

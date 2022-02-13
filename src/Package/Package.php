@@ -75,6 +75,12 @@ class Package extends CompletePackage implements JsonSerializable
             'docs' => 'https://developer.wordpress.org/',
             'rss' => 'https://wordpress.org/news/feed/'
         ]);
+        $this->setFunding([
+            [
+                'type' => 'other',
+                'url' => 'https://wordpressfoundation.org/donate/'
+            ]
+        ]);
     }
 
     public function withRequires(string $minPhpVersion = null): void
