@@ -32,9 +32,15 @@ class WPDotOrgAPI implements SourceInterface
             ->withVersion($release->version);
 
         $package->setDistType('zip');
-        $package->setDistUrl($release->packages->{$this->type->apiName()});
+        $package->setDistUrl($distUrl = $release->packages->{$this->type->apiName()});
         $package->withRequires($release->php_version);
         $package->withProvides();
+
+        $package->setDistCallback(function ($pack) use ($distUrl): void {
+            if ($sha1 = $this->getDistSha1Checksum($distUrl)) {
+                $pack->setDistSha1Checksum($sha1);
+            }
+        });
 
         return $package;
     }
@@ -42,6 +48,11 @@ class WPDotOrgAPI implements SourceInterface
     public function fetchUnstable(string $endpoint = null): void
     {
         $this->fetch(($endpoint ?? $this::ENDPOINT) . '?channel=beta');
+    }
+
+    protected function getDistSha1Checksum(string $distUrl): string
+    {
+        return trim(file_get_contents($distUrl . '.sha1') ?: '');
     }
 
     public function fetch(string $endpoint = null): self
