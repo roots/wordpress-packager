@@ -71,7 +71,7 @@ class PackageTest extends TestCase
         $json = new JsonFile($this->jsonFile);
         $this->assertTrue($json->validateSchema());
 
-        $this->assertJsonFileEqualsJsonFile($this->jsonFile, __DIR__ . '/../resources/composer.json');
+        $this->assertJsonFileEqualsJsonFile($this->jsonFile, __DIR__ . '/../resources/package-composer.json');
     }
 
     public function testGreaterThanOrEqualTo()
@@ -95,16 +95,18 @@ class PackageTest extends TestCase
 
         $builder = new Package('roots/wordpress');
 
-        $phpNew1 = $getPhpPackage($builder->clone()->withVersion('5.2.1'));
-        $phpNew2 = $getPhpPackage($builder->clone()->withVersion('5.2'));
-        $phpNew3 = $getPhpPackage($builder->clone()->withVersion('5.2-beta1'));
-        $phpOld1 = $getPhpPackage($builder->clone()->withVersion('5.1'));
-        $phpOld2 = $getPhpPackage($builder->clone()->withVersion('4.0'));
+        $phpNew1 = $getPhpPackage($builder->clone()->withVersion('5.2.1')->withRequires());
+        $phpNew2 = $getPhpPackage($builder->clone()->withVersion('5.2')->withRequires());
+        $phpNew3 = $getPhpPackage($builder->clone()->withVersion('5.2-beta1')->withRequires());
+        $phpOld1 = $getPhpPackage($builder->clone()->withVersion('5.1')->withRequires());
+        $phpOld2 = $getPhpPackage($builder->clone()->withVersion('4.0')->withRequires());
+        $phpCustom = $getPhpPackage($builder->clone()->withVersion('7.8')->withRequires('7.7.7'));
 
-        $this->assertTrue($phpNew1->matches(new Constraint('=', '5.6.20')));
-        $this->assertTrue($phpNew2->matches(new Constraint('=', '5.6.20')));
-        $this->assertTrue($phpNew3->matches(new Constraint('=', '5.6.20')));
-        $this->assertTrue($phpOld1->matches(new Constraint('=', '5.2.4')));
-        $this->assertTrue($phpOld2->matches(new Constraint('=', '5.2.4')));
+        $this->assertTrue($phpNew1->matches(new Constraint(Constraint::STR_OP_EQ, '5.6.20')));
+        $this->assertTrue($phpNew2->matches(new Constraint(Constraint::STR_OP_EQ, '5.6.20')));
+        $this->assertTrue($phpNew3->matches(new Constraint(Constraint::STR_OP_EQ, '5.6.20')));
+        $this->assertTrue($phpOld1->matches(new Constraint(Constraint::STR_OP_EQ, '5.2.4')));
+        $this->assertTrue($phpOld2->matches(new Constraint(Constraint::STR_OP_EQ, '5.2.4')));
+        $this->assertTrue($phpCustom->matches(new Constraint(Constraint::STR_OP_EQ, '7.7.7')));
     }
 }
