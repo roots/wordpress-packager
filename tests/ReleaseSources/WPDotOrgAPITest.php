@@ -20,10 +20,16 @@ class WPDotOrgAPITest extends TestCase
         $this->assertInstanceOf(Repository::class, $repo);
         $this->assertNotEmpty($repo);
 
+        /** @var Package $wpLatest */
         $wpLatest = $repo->findPackage($pkgName, '5.8.3');
         $this->assertEquals(
             '5.8.3',
             $wpLatest->getPrettyVersion()
+        );
+
+        $this->assertJsonStringEqualsJsonFile(
+            __DIR__ . '/../resources/source-composer.json',
+            json_encode($wpLatest, JSON_UNESCAPED_SLASHES)
         );
     }
 
