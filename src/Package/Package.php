@@ -15,6 +15,8 @@ use JsonSerializable;
 
 class Package extends CompletePackage implements JsonSerializable
 {
+    private \Closure $distCallback;
+
     public function __construct(string $name)
     {
         parent::__construct(
@@ -22,11 +24,6 @@ class Package extends CompletePackage implements JsonSerializable
             '0.0.0.0',
             '0.0.0',
         );
-
-        $this->withMetadata();
-        $this->withLinks();
-        $this->withRequires();
-        $this->withSuggests();
     }
 
     /**
@@ -50,7 +47,7 @@ class Package extends CompletePackage implements JsonSerializable
         return $this;
     }
 
-    protected function withMetadata(): void
+    protected function withMetadata(): self
     {
         $this->setType('wordpress-core');
         $this->setDescription('WordPress is web software you can use to create a beautiful website or blog.');
@@ -66,9 +63,11 @@ class Package extends CompletePackage implements JsonSerializable
             'cms'
         ]);
         $this->setLicense(['GPL-2.0-or-later']);
+
+        return $this;
     }
 
-    protected function withLinks(): void
+    protected function withLinks(): self
     {
         $this->setHomepage('https://wordpress.org/');
         $this->setSupport([
@@ -86,9 +85,11 @@ class Package extends CompletePackage implements JsonSerializable
                 'url' => 'https://wordpressfoundation.org/donate/'
             ]
         ]);
+
+        return $this;
     }
 
-    public function withRequires(string $minPhpVersion = null): void
+    public function withRequires(string $minPhpVersion = null): self
     {
         if (is_null($minPhpVersion)) {
             $minPhpVersion = self::getMinPhpVersion($this->getVersion());
@@ -110,9 +111,11 @@ class Package extends CompletePackage implements JsonSerializable
                 '^1.0'
             )
         ]);
+
+        return $this;
     }
 
-    public function withProvides(): void
+    public function withProvides(): self
     {
         if ($this->version === '0.0.0.0') {
             throw new \Exception('The version must be set before setting implementations provided');
@@ -127,6 +130,8 @@ class Package extends CompletePackage implements JsonSerializable
                 $this->prettyVersion
             )
         ]);
+
+        return $this;
     }
 
     /**
@@ -134,7 +139,7 @@ class Package extends CompletePackage implements JsonSerializable
      *
      * @see https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions
      */
-    protected function withSuggests(): void
+    protected function withSuggests(): self
     {
         $this->setSuggests([
             'ext-curl' => 'Performs remote request operations.',
@@ -152,6 +157,8 @@ class Package extends CompletePackage implements JsonSerializable
             'ext-xml' => 'Used for XML parsing, such as from a third-party site.',
             'ext-zip' => 'Used for decompressing Plugins, Themes, and WordPress update packages.',
         ]);
+
+        return $this;
     }
 
     /**
@@ -173,11 +180,34 @@ class Package extends CompletePackage implements JsonSerializable
         return '5.6.20';
     }
 
+    public function setDistCallback(\Closure $callback): void
+    {
+        $this->distCallback = $callback;
+    }
+
+    /**
+     * Just in time metadata insertion before serialization.
+     *
+     * @return void
+     */
+    private function prepareData(): void
+    {
+        $this->withMetadata();
+        $this->withLinks();
+        $this->withSuggests();
+
+        if (isset($this->distCallback)) {
+            ($this->distCallback)($this);
+        }
+    }
+
     /**
      * @return array<string, mixed>
      */
     public function jsonSerialize(): array
     {
+        $this->prepareData();
+
         $dump = (new ArrayDumper())->dump($this);
         // TODO: figure out why I have to do this in upstream
         unset($dump['version_normalized']);
