@@ -53,7 +53,7 @@ use Symfony\Component\Filesystem\Filesystem;
             /** @var SourceInterface $source */
             $source = new $sourceClass($builder, ReleaseType::from($input->getOption('type')));
             $source->fetch();
-            if ($input->getOption('unstable')) {
+            if ($input->getOption('unstable') && method_exists($source, 'fetchUnstable')) {
                 $source->fetchUnstable();
             }
             $packages = $source->get()->getPackages();
