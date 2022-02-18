@@ -50,7 +50,7 @@ class Package extends CompletePackage implements JsonSerializable
     protected function withMetadata(): self
     {
         $this->setType('wordpress-core');
-        $this->setDescription('WordPress is web software you can use to create a beautiful website or blog.');
+        $this->setDescription('WordPress is open source software you can use to create a beautiful website, blog, or app.');
         $this->setAuthors([
             [
                 'name' => 'WordPress Community',
