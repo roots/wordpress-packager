@@ -240,4 +240,9 @@ class Package extends CompletePackage implements JsonSerializable
 
         return strnatcmp($a->getName(), $b->getName());
     }
+
+    public function __toString(): string
+    {
+        return $this->getPrettyVersion();
+    }
 }

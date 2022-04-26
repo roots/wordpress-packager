@@ -21,9 +21,12 @@ class Target
     }
 
     /**
+     * Get target Git tags
+     *
      * @return array<string>
+     * @throws \CzProject\GitPhp\GitException
      */
-    protected function getGitTags(): array
+    public function get(): array
     {
         if ($this->gitTags === null) {
             $this->gitRepo->fetch('origin');
@@ -33,15 +36,32 @@ class Target
         return $this->gitTags;
     }
 
-    protected function hasGitTag(string $tag): bool
+    /**
+     * Check target Git tag existence
+     *
+     * @param Package $package
+     * @return bool
+     * @throws \CzProject\GitPhp\GitException
+     */
+    public function has(string $version): bool
     {
-        return in_array($tag, $this->getGitTags(), true);
+        return in_array($version, $this->get(), true);
     }
 
+    /**
+     * Set a Git tag on the target
+     *
+     * @param Package $package
+     * @return void
+     *
+     * @throws \CzProject\GitPhp\GitException
+     * @throws \JsonException
+     */
     public function add(Package $package): void
     {
         $version = $package->getPrettyVersion();
-        if ($this->hasGitTag($version)) {
+
+        if ($this->has($version)) {
             return;
         }
 
