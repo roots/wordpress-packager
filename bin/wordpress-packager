@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once($_composer_autoload_path ?? dirname(__DIR__) . '/vendor/autoload.php');
 
 use CzProject\GitPhp\Git;
+use CzProject\GitPhp\GitException;
 use Roots\WordPressPackager\License;
 use Roots\WordPressPackager\Package\Package;
 use Roots\WordPressPackager\Package\Writer;
@@ -40,16 +41,20 @@ use Symfony\Component\Filesystem\Filesystem;
         }
 
         try {
-            $gitRepo = (new Git())->cloneRepository(
-                $input->getArgument('remote'),
-                Directory::mktemp($fs)
+            $output->writeln('-> Init repo');
+            $target = new Target(
+                (new Git())->cloneRepository(
+                    $input->getArgument('remote'),
+                    Directory::mktemp($fs)
+                ),
+                new Writer($fs, $license ?? null)
             );
 
-            $target = new Target($gitRepo, new Writer($fs, $license ?? null));
-
+            $output->writeln('-> Init package template');
             $builder = new Package($input->getArgument('package'));
             $sourceClass = '\\Roots\\WordPressPackager\\ReleaseSources\\' . $input->getOption('source');
 
+            $output->writeln('-> Fetch releases');
             /** @var SourceInterface $source */
             $source = new $sourceClass($builder, ReleaseType::from($input->getOption('type')));
             $source->fetch();
@@ -57,11 +62,15 @@ use Symfony\Component\Filesystem\Filesystem;
                 $source->fetchUnstable();
             }
             $packages = $source->get()->getPackages();
+            $packages = array_diff($packages, $target->get());
 
-            array_map(function (Package $package) use ($target): void {
+            $output->writeln('-> Submit new releases ('.count($packages).')');
+            array_map(function (Package $package) use ($target, $output): void {
+                $output->write("   {$package}... ");
                 $target->add($package);
+                $output->writeln('done');
             }, $packages);
-        } catch (\CzProject\GitPhp\GitException $e) {
+        } catch (GitException $e) {
             var_dump($e->getRunnerResult()->toText());
             throw $e;
         }
