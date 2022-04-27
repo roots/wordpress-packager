@@ -36,10 +36,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name "$GITHUB_ACTOR"
-          git config --global user.email "$EMAIL"
-        env:
-          EMAIL: ${{ secrets.EMAIL }}
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
 
       - name: Run
         run: composer run build -- $REMOTE $PACKAGE --type=$TYPE --unstable
