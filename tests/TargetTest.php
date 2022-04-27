@@ -96,7 +96,7 @@ class TargetTest extends TestCase
                 ])
                 ->once();
         $gitRepo->shouldHaveReceived('push')
-                ->with('origin', ['refs/tags/1.2.3'])
+                ->with(['origin', 'refs/tags/1.2.3'])
                 ->once();
     }
 }
