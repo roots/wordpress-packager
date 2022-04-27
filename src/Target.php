@@ -79,7 +79,7 @@ class Target
             '--annotate',
             '--message' => "Version {$version}",
         ]);
-        $this->gitRepo->push('origin', ["refs/tags/{$version}"]);
+        $this->gitRepo->push(['origin', "refs/tags/{$version}"]);
 
         $this->gitTags[] = $version;
     }
