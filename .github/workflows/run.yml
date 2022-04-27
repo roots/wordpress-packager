@@ -15,6 +15,13 @@ jobs:
           - full
 
     steps:
+      - name: Generate token
+        uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.BOT_APP_ID }}
+          private_key: ${{ secrets.BOT_PRIVATE_KEY }}
+
       - uses: actions/checkout@v3
 
       - uses: shivammathur/setup-php@v2
@@ -42,6 +49,6 @@ jobs:
       - name: Run
         run: composer run build -- $REMOTE $PACKAGE --type=$TYPE --unstable
         env:
-          REMOTE: https://${{ github.actor }}:${{ secrets.ROOTS_BOT_ACCESS_TOKEN }}@github.com/${{ github.repository_owner }}/${{ secrets.PACKAGE_NAME }}.git
+          REMOTE: https://${{ github.actor }}:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository_owner }}/${{ secrets.PACKAGE_NAME }}.git
           PACKAGE: ${{ github.repository_owner }}/${{ secrets.PACKAGE_NAME }}
           TYPE: ${{ matrix.release-type }}
