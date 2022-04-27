@@ -44,6 +44,6 @@ jobs:
       - name: Run
         run: composer run build -- $REMOTE $PACKAGE --type=$TYPE --unstable
         env:
-          REMOTE: https://${{ github.actor }}:${{ secrets.TOKEN }}@github.com/${{ github.repository_owner }}/${{ secrets.PACKAGE_NAME }}.git
+          REMOTE: https://${{ github.actor }}:${{ secrets.ROOTS_BOT_ACCESS_TOKEN }}@github.com/${{ github.repository_owner }}/${{ secrets.PACKAGE_NAME }}.git
           PACKAGE: ${{ github.repository_owner }}/${{ secrets.PACKAGE_NAME }}
           TYPE: ${{ matrix.release-type }}
