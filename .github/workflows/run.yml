@@ -2,8 +2,8 @@ name: Build
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: '0 * * * *'
+  schedule:
+    - cron: '5 * * * *'
 
 jobs:
   packager:
