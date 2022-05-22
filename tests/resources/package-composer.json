@@ -2,8 +2,7 @@
     "name": "roots/wordpress",
     "version": "5.2.1",
     "require": {
-        "php": ">= 5.6.20",
-        "roots/wordpress-core-installer": "^1.0"
+        "php": ">= 5.6.20"
     },
     "provide": {
         "wordpress/core-implementation": "5.2.1"

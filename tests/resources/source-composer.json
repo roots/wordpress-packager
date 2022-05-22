@@ -10,8 +10,7 @@
         "wordpress/core-implementation": "5.8.3"
     },
     "require": {
-        "php": ">= 5.6.20",
-        "roots/wordpress-core-installer": "^1.0"
+        "php": ">= 5.6.20"
     },
     "suggest": {
         "ext-curl": "Performs remote request operations.",

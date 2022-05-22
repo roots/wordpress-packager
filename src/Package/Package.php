@@ -104,13 +104,6 @@ class Package extends CompletePackage implements JsonSerializable
                 $phpConstraint = new Constraint(Constraint::STR_OP_GE, $minPhpVersion),
                 Link::TYPE_REQUIRE,
                 $phpConstraint->getPrettyString()
-            ),
-            'roots/wordpress-core-installer' =>  new Link(
-                $this->getName(),
-                'roots/wordpress-core-installer',
-                new Constraint(Constraint::STR_OP_GE, '1.0.0'),
-                Link::TYPE_REQUIRE,
-                '^1.0'
             )
         ]);
 
