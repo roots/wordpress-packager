@@ -9,6 +9,8 @@ jobs:
   packager:
     name: ${{ matrix.release-type }}
     runs-on: ubuntu-latest
+    outputs:
+      submitted: ${{ steps.packager.outputs.submitted }}
     strategy:
       matrix:
         release-type:
@@ -48,8 +50,18 @@ jobs:
           git config --global user.email "actions@github.com"
 
       - name: Run
+        id: packager
         run: composer run build -- $REMOTE $PACKAGE --type=$TYPE --unstable
         env:
           REMOTE: https://${{ github.actor }}:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository_owner }}/${{ secrets.PACKAGE_PREFIX }}${{ matrix.release-type }}.git
           PACKAGE: ${{ github.repository_owner }}/${{ secrets.PACKAGE_PREFIX }}${{ matrix.release-type }}
           TYPE: ${{ matrix.release-type }}
+
+  meta-package:
+    name: Meta-package
+    if: needs.packager.outputs.submitted
+    needs:
+      - packager
+    uses: ./.github/workflows/meta-package.yml
+    with:
+      action-matrix: ${{ needs.packager.outputs.submitted }}

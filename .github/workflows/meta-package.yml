@@ -1,0 +1,33 @@
+name: Meta-package
+
+on:
+  workflow_call:
+    inputs:
+      tag-matrix:
+        required: true
+        type: string
+        description: Matrix of tag to submit
+
+jobs:
+  submit:
+    name: Submit
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        tag: ${{ fromJSON(inputs.tag-matrix) }}
+    steps:
+      - name: Generate token
+        uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.BOT_APP_ID }}
+          private_key: ${{ secrets.BOT_PRIVATE_KEY }}
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          repository: ${{ secrets.META_PACKAGE }}
+          token: ${{ steps.generate-token.outputs.token }}
+          body: Version ${{ matrix.tag }}
+          tag_name: ${{ matrix.tag }}
