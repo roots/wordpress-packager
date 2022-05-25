@@ -61,6 +61,10 @@ use Symfony\Component\Filesystem\Filesystem;
                 $target->add($package);
                 $output->writeln('done');
             }, $packages);
+
+            if (getenv('GITHUB_ACTIONS')) {
+                $output->writeln('::set-output name=submitted::' . json_encode($packages));
+            }
         } catch (GitException $e) {
             var_dump($e->getRunnerResult()->toText());
             throw $e;
