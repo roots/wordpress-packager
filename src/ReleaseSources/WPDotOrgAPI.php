@@ -33,7 +33,13 @@ class WPDotOrgAPI implements SourceInterface
 
         $package->setDistType('zip');
         $package->setDistUrl($distUrl = $release->packages->{$this->type->apiName()});
+
+        $package->setSourceType('git');
+        $package->setSourceUrl('https://github.com/WordPress/WordPress.git');
+        $package->setSourceReference($package->getStability() === 'stable' ? $release->version : 'master');
+
         $package->withRequires($release->php_version);
+
         $package->withProvides();
 
         $package->setDistCallback(function ($pack) use ($distUrl): void {
