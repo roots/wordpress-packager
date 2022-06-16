@@ -7,7 +7,6 @@ namespace Roots\WordPressPackager\Tests\Package;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use Roots\WordPressPackager\License;
 use Roots\WordPressPackager\Package\Package;
 use Roots\WordPressPackager\Package\Writer;
 use Symfony\Component\Filesystem\Filesystem;
@@ -30,13 +29,7 @@ class WriterTest extends TestCase
 
         $filesystem = Mockery::spy(Filesystem::class);
 
-        $license = Mockery::mock(License::class);
-        $license->shouldReceive('getContent')
-                ->withNoArgs()
-                ->once()
-                ->andReturn('I am license content');
-
-        $packageWriter = new Writer($filesystem, $license);
+        $packageWriter = new Writer($filesystem);
 
         $actuals = $packageWriter->dumpFiles($package, '/fake/path');
 
@@ -46,12 +39,6 @@ class WriterTest extends TestCase
                        json_encode($composerJsonArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR)
                    )
                    ->once();
-        $filesystem->shouldHaveReceived('dumpFile')
-                   ->with('/fake/path/LICENSE', 'I am license content')
-                   ->once();
-        $this->assertEquals([
-            '/fake/path/composer.json',
-            '/fake/path/LICENSE',
-        ], $actuals);
+        $this->assertEquals(['/fake/path/composer.json'], $actuals);
     }
 }

@@ -11,7 +11,7 @@ This package helps to generate Composer packages for any WordPress release.
 ## Usage
 
 ```bash
-$ vendor/bin/wordpress-packager [--source SOURCE] [-t|--type TYPE] [-u|--unstable] [--license LICENSE] [--] <remote> <package>
+$ vendor/bin/wordpress-packager [--source SOURCE] [-t|--type TYPE] [-u|--unstable] [--] <remote> <package>
 ```
 
 ### Repository remote `<remote>`
