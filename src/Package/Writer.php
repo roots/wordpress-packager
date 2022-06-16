@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Roots\WordPressPackager\Package;
 
-use Roots\WordPressPackager\License;
 use Symfony\Component\Filesystem\Filesystem;
 
 class Writer
 {
     public function __construct(
-        protected Filesystem $filesystem,
-        protected ?License $license = null
+        protected Filesystem $filesystem
     ) {
         //
     }
@@ -32,13 +30,6 @@ class Writer
             $paths[] = "${dir}/composer.json",
             $composerJsonContent
         );
-
-        if (! is_null($this->license)) {
-            $this->filesystem->dumpFile(
-                $paths[] = "${dir}/LICENSE",
-                $this->license->getContent()
-            );
-        }
 
         return $paths;
     }

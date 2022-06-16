@@ -6,7 +6,6 @@ require_once($_composer_autoload_path ?? dirname(__DIR__) . '/vendor/autoload.ph
 
 use CzProject\GitPhp\Git;
 use CzProject\GitPhp\GitException;
-use Roots\WordPressPackager\License;
 use Roots\WordPressPackager\Package\Package;
 use Roots\WordPressPackager\Package\Writer;
 use Roots\WordPressPackager\ReleaseSources\Concerns\ReleaseType;
@@ -27,18 +26,10 @@ use Symfony\Component\Filesystem\Filesystem;
     ->addOption('source', null, InputOption::VALUE_REQUIRED, 'Release source', 'WPDotOrgAPI')
     ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Release type', ReleaseType::Full->value)
     ->addOption('unstable', 'u', InputOption::VALUE_NONE, 'Includes unstable releases')
-    ->addOption('license', null, InputOption::VALUE_REQUIRED, 'License author')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         $output->writeln('Running WordPress Packager helper');
 
         $fs = new Filesystem();
-
-        if ($input->getOption('license')) {
-            $license = new License(
-                date('Y'),
-                $input->getOption('license')
-            );
-        }
 
         try {
             $output->writeln('-> Init repo');
@@ -47,7 +38,7 @@ use Symfony\Component\Filesystem\Filesystem;
                     $input->getArgument('remote'),
                     Directory::mktemp($fs)
                 ),
-                new Writer($fs, $license ?? null)
+                new Writer($fs)
             );
 
             $output->writeln('-> Init package template');
