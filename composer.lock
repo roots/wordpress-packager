@@ -704,16 +704,16 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v9.19.0",
+            "version": "v9.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
-                "reference": "253cfce2bf469c340d2268bfbc31d4ad446a1fa7"
+                "reference": "b53d26fbcfb623c4f7538eadd9bc5083e0a59bdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/collections/zipball/253cfce2bf469c340d2268bfbc31d4ad446a1fa7",
-                "reference": "253cfce2bf469c340d2268bfbc31d4ad446a1fa7",
+                "url": "https://api.github.com/repos/illuminate/collections/zipball/b53d26fbcfb623c4f7538eadd9bc5083e0a59bdd",
+                "reference": "b53d26fbcfb623c4f7538eadd9bc5083e0a59bdd",
                 "shasum": ""
             },
             "require": {
@@ -755,11 +755,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-06-28T14:33:19+00:00"
+            "time": "2022-07-01T20:41:17+00:00"
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v9.19.0",
+            "version": "v9.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
@@ -805,7 +805,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v9.19.0",
+            "version": "v9.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -853,7 +853,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v9.19.0",
+            "version": "v9.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -899,16 +899,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v9.19.0",
+            "version": "v9.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "350d65d043cd81ef84e8f5967d8935e8fa52c055"
+                "reference": "153993a1dfc8d1d5fb029b2f74a6df3c0712d89a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/350d65d043cd81ef84e8f5967d8935e8fa52c055",
-                "reference": "350d65d043cd81ef84e8f5967d8935e8fa52c055",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/153993a1dfc8d1d5fb029b2f74a6df3c0712d89a",
+                "reference": "153993a1dfc8d1d5fb029b2f74a6df3c0712d89a",
                 "shasum": ""
             },
             "require": {
@@ -964,7 +964,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-06-28T14:33:19+00:00"
+            "time": "2022-07-13T13:11:02+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -1199,16 +1199,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.59.0",
+            "version": "2.59.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "9cea2f72585a46d0651ee6d4c8c8f752e78c16c6"
+                "reference": "a9000603ea337c8df16cc41f8b6be95a65f4d0f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/9cea2f72585a46d0651ee6d4c8c8f752e78c16c6",
-                "reference": "9cea2f72585a46d0651ee6d4c8c8f752e78c16c6",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/a9000603ea337c8df16cc41f8b6be95a65f4d0f5",
+                "reference": "a9000603ea337c8df16cc41f8b6be95a65f4d0f5",
                 "shasum": ""
             },
             "require": {
@@ -1297,7 +1297,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-26T20:26:59+00:00"
+            "time": "2022-06-29T21:43:55+00:00"
         },
         {
             "name": "psr/container",
