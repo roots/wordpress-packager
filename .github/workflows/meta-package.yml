@@ -1,14 +1,13 @@
 name: Meta-package
 
 on:
+  workflow_call:
   workflow_dispatch:
     inputs:
       dry-run:
-        required: true
+        required: false
         type: boolean
         default: true
-  # schedule:
-  #   - cron: '*/10 * * * *'
 
 jobs:
   sync:
