@@ -33,7 +33,7 @@ jobs:
           META: ${{ secrets.META_PACKAGE }}
         with:
           script: |
-            const { PACKAGE } = process.env
+            const { PACKAGE, META } = process.env
             const currrentTags = github.rest.repos.listTags({
               owner: context.repo.owner,
               repo: META.substring(str.indexOf('/') + 1),
