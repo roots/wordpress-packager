@@ -34,16 +34,19 @@ jobs:
         with:
           script: |
             const { PACKAGE, META } = process.env
-            const currrentTags = github.rest.repos.listTags({
-              owner: context.repo.owner,
-              repo: META.substring(META.indexOf('/') + 1),
-            })
-            const upstreamTags = github.rest.repos.listTags({
-              owner: context.repo.owner,
-              repo: PACKAGE.substring(PACKAGE.indexOf('/') + 1),
-              per_page: 15
-            })
-            return upstreamTags.filter((tag) => !currrentTags.includes(tag))
+            const [{ data: currrentTags }, { data: upstreamTags }] = await Promise.all([
+              github.rest.repos.listTags({
+                owner: context.repo.owner,
+                repo: META.substring(META.indexOf('/') + 1),
+                per_page: 100,
+              }),
+              github.rest.repos.listTags({
+                owner: context.repo.owner,
+                repo: PACKAGE.substring(PACKAGE.indexOf('/') + 1),
+                per_page: 12,
+              }),
+            ])
+            return upstreamTags.filter((tag) => !currrentTags.find((t) => t.name === tag.name))
 
       - name: Extract latest release
         id: latest-release
