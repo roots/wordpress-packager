@@ -36,11 +36,11 @@ jobs:
             const { PACKAGE, META } = process.env
             const currrentTags = github.rest.repos.listTags({
               owner: context.repo.owner,
-              repo: META.substring(str.indexOf('/') + 1),
+              repo: META.substring(META.indexOf('/') + 1),
             })
             const upstreamTags = github.rest.repos.listTags({
               owner: context.repo.owner,
-              repo: PACKAGE.substring(str.indexOf('/') + 1),
+              repo: PACKAGE.substring(PACKAGE.indexOf('/') + 1),
               per_page: 15
             })
             return upstreamTags.filter((tag) => !currrentTags.includes(tag))
