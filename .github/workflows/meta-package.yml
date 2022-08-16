@@ -3,11 +3,6 @@ name: Meta-package
 on:
   workflow_call:
   workflow_dispatch:
-    inputs:
-      dry-run:
-        required: false
-        type: boolean
-        default: true
 
 jobs:
   sync:
@@ -46,7 +41,9 @@ jobs:
                 per_page: 12,
               }),
             ])
-            return upstreamTags.filter((tag) => !currrentTags.find((t) => t.name === tag.name))
+            return upstreamTags
+              .filter((tag) => !currrentTags.find((t) => t.name === tag.name))
+              .map((tag) => tag.name)
 
       - name: Extract latest release
         id: latest-release
@@ -73,7 +70,7 @@ jobs:
     needs:
       - sync
       - generate-token
-    if: needs.sync.outputs.tags-matrix
+    if: needs.sync.outputs.tags-matrix != '[]'
     strategy:
       fail-fast: false
       matrix:
@@ -86,7 +83,6 @@ jobs:
 
       - name: Create a tag
         uses: rickstaa/action-create-tag@v1
-        if: ${{ ! inputs.dry-run }}
         with:
           tag: ${{ matrix.tag }}
           message: ${{ matrix.tag }}
@@ -98,11 +94,10 @@ jobs:
       - sync
       - generate-token
       - tags
-    if: needs.sync.outputs.latest-release
+    if: needs.sync.outputs.tags-matrix != '[]'
     steps:
       - name: Create a release
         uses: softprops/action-gh-release@v1
-        if: ${{ ! inputs.dry-run }}
         with:
           repository: ${{ secrets.META_PACKAGE }}
           token: ${{ needs.generate-token.outputs.token }}
