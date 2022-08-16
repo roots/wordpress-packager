@@ -53,3 +53,9 @@ jobs:
           REMOTE: https://${{ github.actor }}:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository_owner }}/${{ secrets.PACKAGE_PREFIX }}${{ matrix.release-type }}.git
           PACKAGE: ${{ github.repository_owner }}/${{ secrets.PACKAGE_PREFIX }}${{ matrix.release-type }}
           TYPE: ${{ matrix.release-type }}
+
+  meta-package:
+    name: Meta-package
+    needs:
+      - packager
+    uses: ./.github/workflows/meta-package.yml
