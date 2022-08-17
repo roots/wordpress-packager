@@ -9,8 +9,8 @@ jobs:
     name: Sync
     runs-on: ubuntu-latest
     outputs:
-      tags-matrix: steps.tags-matrix.outputs.result
-      latest-release: steps.latest-release.outputs.result
+      tags-matrix: ${{ steps.tags-matrix.outputs.result }}
+      latest-release: ${{ steps.latest-release.outputs.result }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -41,10 +41,9 @@ jobs:
                 per_page: 12,
               }),
             ])
-            const matrix = upstreamTags
+            return upstreamTags
               .filter((tag) => !currrentTags.find((t) => t.name === tag.name))
               .map((tag) => tag.name)
-            return matrix.length ? matrix : ''
 
       - name: Extract latest release
         id: latest-release
@@ -71,7 +70,7 @@ jobs:
     needs:
       - sync
       - generate-token
-    if: needs.sync.outputs.tags-matrix != ''
+    if: needs.sync.outputs.tags-matrix != '[]'
     strategy:
       fail-fast: false
       matrix:
@@ -95,7 +94,7 @@ jobs:
       - sync
       - generate-token
       - tags
-    if: needs.sync.outputs.tags-matrix != ''
+    if: needs.sync.outputs.tags-matrix != '[]'
     steps:
       - name: Create a release
         uses: softprops/action-gh-release@v1
