@@ -59,3 +59,4 @@ jobs:
     needs:
       - packager
     uses: ./.github/workflows/meta-package.yml
+    secrets: inherit
