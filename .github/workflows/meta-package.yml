@@ -75,10 +75,11 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
 
       - name: Create a tag
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: ${{ matrix.tag }}
-          message: ${{ matrix.tag }}
+        env:
+          TAG: ${{ matrix.tag }}
+        run: |
+          git tag -a "${TAG}" -m "${TAG}"
+          git push origin "${TAG}"
 
   release:
     name: Release
