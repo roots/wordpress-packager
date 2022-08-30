@@ -102,6 +102,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           repository: ${{ secrets.META_PACKAGE }}
-          token: ${{ needs.generate-token.outputs.token }}
-          body: WordPress ${{ steps.sync.outputs.latest-release }}
+          token: ${{ steps.generate-token.outputs.token }}
+          body: WordPress ${{ needs.sync.outputs.latest-release }}
           tag_name: ${{ needs.sync.outputs.latest-release }}
