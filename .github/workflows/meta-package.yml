@@ -50,15 +50,13 @@ jobs:
                     repo: META.substring(META.indexOf('/') + 1),
                     ref: 'tags/' + tag.name,
                   })
+                  .then(() => {})
+                  .catch((res) => ({ tag: tag.name, status: res.status }))
                 )
             )
             return targetTags
-              .filter((req) => req.status === 'rejected' && req.reason.status === 404) // Non existent tags
-              .map((res) =>
-                res.reason.request.url.substring(
-                  res.reason.request.url.indexOf('%2F') + 3 // 'refs/tags%2Fx.y.z'
-                )
-              )
+              .filter(({ value }) => value?.status === 404)
+              .map(({ value }) => value.tag)
 
       # Can't be used as is: some version release batches don't override latest version
       # - name: Extract latest release
