@@ -53,7 +53,7 @@ jobs:
                 )
             )
             return targetTags
-              .filter((req) => req.status === 'rejected') // Non existent tags
+              .filter((req) => req.status === 'rejected' && req.reason.status === 404) // Non existent tags
               .map((res) =>
                 res.reason.request.url.substring(
                   res.reason.request.url.indexOf('%2F') + 3 // 'refs/tags%2Fx.y.z'
