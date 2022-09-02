@@ -45,13 +45,14 @@ jobs:
               upstreamTags
                 .filter((tag) => !currrentTags.find((t) => t.name === tag.name))
                 .map((tag) =>
-                  github.rest.git.getRef({
-                    owner: context.repo.owner,
-                    repo: META.substring(META.indexOf('/') + 1),
-                    ref: 'tags/' + tag.name,
-                  })
-                  .then(() => {})
-                  .catch((res) => ({ tag: tag.name, status: res.status }))
+                  github.rest.git
+                    .getRef({
+                      owner: context.repo.owner,
+                      repo: META.substring(META.indexOf('/') + 1),
+                      ref: 'tags/' + tag.name,
+                    })
+                    .then(() => {})
+                    .catch((res) => ({ tag: tag.name, status: res.status }))
                 )
             )
             return targetTags
