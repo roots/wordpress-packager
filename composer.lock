@@ -779,16 +779,16 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v9.30.1",
+            "version": "v9.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
-                "reference": "75c6da8dae581e37943ddc864a8fc6830fae9065"
+                "reference": "a533ba3fce4e288a42f6287e1b9a685cdbc14f9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/collections/zipball/75c6da8dae581e37943ddc864a8fc6830fae9065",
-                "reference": "75c6da8dae581e37943ddc864a8fc6830fae9065",
+                "url": "https://api.github.com/repos/illuminate/collections/zipball/a533ba3fce4e288a42f6287e1b9a685cdbc14f9f",
+                "reference": "a533ba3fce4e288a42f6287e1b9a685cdbc14f9f",
                 "shasum": ""
             },
             "require": {
@@ -830,11 +830,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-09-12T13:46:55+00:00"
+            "time": "2022-09-16T14:22:26+00:00"
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v9.30.1",
+            "version": "v9.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
@@ -880,16 +880,16 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v9.30.1",
+            "version": "v9.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "0d1dd1a7e947072319f2e641cc50081219606502"
+                "reference": "d57130115694b4f6a98d064bea31cdb09d7784f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/0d1dd1a7e947072319f2e641cc50081219606502",
-                "reference": "0d1dd1a7e947072319f2e641cc50081219606502",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/d57130115694b4f6a98d064bea31cdb09d7784f8",
+                "reference": "d57130115694b4f6a98d064bea31cdb09d7784f8",
                 "shasum": ""
             },
             "require": {
@@ -924,11 +924,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-08-18T14:18:13+00:00"
+            "time": "2022-09-15T13:31:42+00:00"
         },
         {
             "name": "illuminate/macroable",
-            "version": "v9.30.1",
+            "version": "v9.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -974,16 +974,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v9.30.1",
+            "version": "v9.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "f86a7ebf013fc393c79454299465e486a4b6d66d"
+                "reference": "720d5ce69156a3d76ee42b79ca5636f3b5010e15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/f86a7ebf013fc393c79454299465e486a4b6d66d",
-                "reference": "f86a7ebf013fc393c79454299465e486a4b6d66d",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/720d5ce69156a3d76ee42b79ca5636f3b5010e15",
+                "reference": "720d5ce69156a3d76ee42b79ca5636f3b5010e15",
                 "shasum": ""
             },
             "require": {
@@ -1006,7 +1006,7 @@
                 "league/commonmark": "Required to use Str::markdown() and Stringable::markdown() (^2.0.2).",
                 "ramsey/uuid": "Required to use Str::uuid() (^4.2.2).",
                 "symfony/process": "Required to use the composer class (^6.0).",
-                "symfony/uid": "Required to generate ULIDs for Eloquent (^6.0).",
+                "symfony/uid": "Required to use Str::ulid() (^6.0).",
                 "symfony/var-dumper": "Required to use the dd function (^6.0).",
                 "vlucas/phpdotenv": "Required to use the Env class and env helper (^5.4.1)."
             },
@@ -1040,7 +1040,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-09-13T19:46:38+00:00"
+            "time": "2022-09-19T14:27:45+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
