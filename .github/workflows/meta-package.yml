@@ -18,7 +18,7 @@ jobs:
 
       - name: Get upstream package name
         id: package
-        run: echo "::set-output name=package-name::$(jq -r '.require | map_values(select(. == "self.version")) | keys[0]' composer.json)"
+        run: echo "package-name=$(jq -r '.require | map_values(select(. == "self.version")) | keys[0]' composer.json)" >> $GITHUB_OUTPUT
 
       - name: Generate matrix from versions arrays
         id: tags-matrix
