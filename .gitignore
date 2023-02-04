@@ -1,5 +1,6 @@
 composer.phar
 /vendor/
 .phpunit.result.cache
+.phpunit.cache
 /coverage/
 clover.xml
