@@ -27,7 +27,7 @@ class Writer
         $paths = [];
 
         $this->filesystem->dumpFile(
-            $paths[] = "${dir}/composer.json",
+            $paths[] = "{$dir}/composer.json",
             $composerJsonContent
         );
 
