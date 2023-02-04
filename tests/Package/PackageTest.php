@@ -13,6 +13,8 @@ use Roots\WordPressPackager\Package\Package;
 
 class PackageTest extends TestCase
 {
+    private Package $builder;
+
     public Package $pkgA;
     public Package $pkgAAlpha;
     public Package $pkgB;
