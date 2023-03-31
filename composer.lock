@@ -780,7 +780,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v10.5.0",
+            "version": "v10.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -835,7 +835,7 @@
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v10.5.0",
+            "version": "v10.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
@@ -881,7 +881,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v10.5.0",
+            "version": "v10.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -929,7 +929,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v10.5.0",
+            "version": "v10.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -975,16 +975,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v10.5.0",
+            "version": "v10.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "3245e51d85f1217c704e0e4fc2a291a0e700acf7"
+                "reference": "646bfb9e8485e5f82921512a19643f26bbb778d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/3245e51d85f1217c704e0e4fc2a291a0e700acf7",
-                "reference": "3245e51d85f1217c704e0e4fc2a291a0e700acf7",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/646bfb9e8485e5f82921512a19643f26bbb778d3",
+                "reference": "646bfb9e8485e5f82921512a19643f26bbb778d3",
                 "shasum": ""
             },
             "require": {
@@ -1042,7 +1042,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-03-25T16:55:23+00:00"
+            "time": "2023-03-29T13:12:38+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
