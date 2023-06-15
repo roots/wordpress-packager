@@ -9,8 +9,7 @@ jobs:
     name: Sync
     runs-on: ubuntu-latest
     outputs:
-      tags-matrix: ${{ steps.tags-matrix.outputs.result }}
-      latest-release: ${{ steps.latest-release.outputs.result }}
+      tags-matrix: ${{ steps.tags-matrix.outputs.result 
     steps:
       - uses: actions/checkout@v3
         with:
@@ -59,13 +58,6 @@ jobs:
               .filter(({ value }) => value?.status === 404)
               .map(({ value }) => value.tag)
 
-      # Can't be used as is: some version release batches don't override latest version
-      # - name: Extract latest release
-      #   id: latest-release
-      #   env:
-      #     TAGS: ${{ steps.tags-matrix.outputs.result }}
-      #   run: echo "::set-output name=result::$(jq -r '.[0]' <<< "$TAGS")"
-
   tags:
     name: Tags
     runs-on: ubuntu-latest
@@ -89,7 +81,16 @@ jobs:
           repository: ${{ secrets.META_PACKAGE }}
           token: ${{ steps.generate-token.outputs.token }}
 
-      - name: Create a tag
+      - name: Retrieve version notes
+        id: notes
+        uses: actions/github-script@v6
+        env:
+          VERSION: ${{ matrix.tag }}
+        with:
+          script: |
+            // WIP
+
+      - name: Push tag
         env:
           TAG: ${{ matrix.tag }}
         run: |
@@ -98,25 +99,11 @@ jobs:
           git tag -a "${TAG}" -m "${TAG}"
           git push origin "${TAG}"
 
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    needs:
-      - sync
-      - tags
-    if: needs.sync.outputs.tags-matrix != '[]'
-    steps:
-      - name: Generate token
-        uses: tibdex/github-app-token@v1
-        id: generate-token
-        with:
-          app_id: ${{ secrets.BOT_APP_ID }}
-          private_key: ${{ secrets.BOT_PRIVATE_KEY }}
-
-      - name: Create a release
+      - name: Publish release
         uses: softprops/action-gh-release@v1
         with:
           repository: ${{ secrets.META_PACKAGE }}
           token: ${{ steps.generate-token.outputs.token }}
-          body: WordPress ${{ needs.sync.outputs.latest-release }}
-          tag_name: ${{ needs.sync.outputs.latest-release }}
+          body: ${{ steps.notes.outputs.body }}
+          name: ${{ steps.notes.outputs.name }}
+          tag_name: ${{ matrix.tag }}
