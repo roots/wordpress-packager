@@ -27,36 +27,8 @@ jobs:
           META: ${{ secrets.META_PACKAGE }}
         with:
           script: |
-            const { PACKAGE, META } = process.env
-            const [{ data: currrentTags }, { data: upstreamTags }] = await Promise.all([
-              github.rest.repos.listTags({
-                owner: context.repo.owner,
-                repo: META.substring(META.indexOf('/') + 1),
-                per_page: 100,
-              }),
-              github.rest.repos.listTags({
-                owner: context.repo.owner,
-                repo: PACKAGE.substring(PACKAGE.indexOf('/') + 1),
-                per_page: 100,
-              }),
-            ])
-            const targetTags = await Promise.allSettled(
-              upstreamTags
-                .filter((tag) => !currrentTags.find((t) => t.name === tag.name))
-                .map((tag) =>
-                  github.rest.git
-                    .getRef({
-                      owner: context.repo.owner,
-                      repo: META.substring(META.indexOf('/') + 1),
-                      ref: 'tags/' + tag.name,
-                    })
-                    .then(() => {})
-                    .catch((res) => ({ tag: tag.name, status: res.status }))
-                )
-            )
-            return targetTags
-              .filter(({ value }) => value?.status === 404)
-              .map(({ value }) => value.tag)
+            const tags = require('${{ github.workspace }}/.github/scripts/tags.js')
+            return await tags({ github, context })
 
   tags:
     name: Tags
@@ -89,27 +61,8 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const slug = `version-${VERSION.replaceAll('.', '-')}`
-            try {
-              const res = await fetch('https://wordpress.org/documentation/wp-json/wp/v2/wordpress-versions?per_page=50')
-              const data = await res.json()
-
-              const release = data.find((tag) => tag.slug === slug)
-              if (!release) { throw Error('Release not found') }
-
-              const { link } = release
-              const body = release.content?.rendered?.split('<h2', 4)[2]
-              if (!body) { throw Error('Release body is empty or unexpected') }
-
-              return `
-            _Sourced from [WordPress.org Documentation](${link})._
-
-            <h2${body}
-            `
-            } catch (e) {
-              console.log(e)
-              return `_Version notes available on [WordPress.org Documentation](https://wordpress.org/documentation/wordpress-version/${slug}/)._`
-            }
+            const notes = require('${{ github.workspace }}/.github/scripts/notes.js')
+            return await notes({ fetch })
 
       - name: Push tag
         env:
