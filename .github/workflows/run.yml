@@ -50,8 +50,8 @@ jobs:
       - name: Run
         run: composer run build -- $REMOTE $PACKAGE --type=$TYPE --unstable
         env:
-          REMOTE: https://${{ github.actor }}:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository_owner }}/${{ secrets.PACKAGE_PREFIX }}${{ matrix.release-type }}.git
-          PACKAGE: ${{ github.repository_owner }}/${{ secrets.PACKAGE_PREFIX }}${{ matrix.release-type }}
+          REMOTE: https://${{ github.actor }}:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository_owner }}/${{ vars.PACKAGE_PREFIX }}${{ matrix.release-type }}.git
+          PACKAGE: ${{ github.repository_owner }}/${{ vars.PACKAGE_PREFIX }}${{ matrix.release-type }}
           TYPE: ${{ matrix.release-type }}
 
   meta-package:

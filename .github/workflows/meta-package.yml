@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: ${{ secrets.META_PACKAGE }}
+          repository: ${{ vars.META_PACKAGE }}
 
       - name: Get upstream package name
         id: package
@@ -36,7 +36,7 @@ jobs:
         uses: actions/github-script@v6
         env:
           PACKAGE: ${{ needs.package.outputs.package-name }}
-          META: ${{ secrets.META_PACKAGE }}
+          META: ${{ vars.META_PACKAGE }}
         with:
           script: |
             const tags = require('${{ github.workspace }}/.github/scripts/tags.js')
@@ -63,7 +63,7 @@ jobs:
 
       - uses: actions/checkout@v3
         with:
-          repository: ${{ secrets.META_PACKAGE }}
+          repository: ${{ vars.META_PACKAGE }}
           token: ${{ steps.generate-token.outputs.token }}
 
       - name: Push tag
@@ -95,7 +95,7 @@ jobs:
         uses: actions/github-script@v6
         env:
           TAGS_MATRIX: ${{ needs.sync.outputs.tags-matrix }}
-          META_PACKAGE: ${{ secrets.META_PACKAGE }}
+          META_PACKAGE: ${{ vars.META_PACKAGE }}
         with:
           github-token: ${{ steps.generate-token.outputs.token }}
           script: |
