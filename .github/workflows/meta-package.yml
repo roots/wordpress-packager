@@ -12,7 +12,7 @@ jobs:
     name: Package
     runs-on: ubuntu-latest
     outputs:
-      name: ${{ steps.package.outputs.package-name }}
+      package-name: ${{ steps.package.outputs.package-name }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -35,7 +35,7 @@ jobs:
         id: tags-matrix
         uses: actions/github-script@v6
         env:
-          PACKAGE: ${{ needs.package.outputs.name }}
+          PACKAGE: ${{ needs.package.outputs.package-name }}
           META: ${{ secrets.META_PACKAGE }}
         with:
           script: |
