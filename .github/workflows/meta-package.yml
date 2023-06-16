@@ -27,7 +27,7 @@ jobs:
           META: ${{ secrets.META_PACKAGE }}
         with:
           script: |
-            const tags = require('${{ github.workspace }}/.github/scripts/tags.js')
+            const tags = require('${{ github.workspace }}/scripts/tags.js')
             return await tags({ github, context })
 
   tags:
@@ -61,7 +61,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const notes = require('${{ github.workspace }}/.github/scripts/notes.js')
+            const notes = require('${{ github.workspace }}/scripts/notes.js')
             return await notes({ core, fetch })
 
       - name: Push tag
