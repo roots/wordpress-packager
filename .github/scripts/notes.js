@@ -17,9 +17,7 @@ module.exports = async ({ fetch }) => {
       throw Error('Release body is empty or unexpected')
     }
 
-    return `_Sourced from [WordPress.org Documentation](${link})._
-
-<h2${body}`
+    return `_Sourced from [WordPress.org Documentation](${link})._\n\n<h2${body}`
   } catch (e) {
     console.log(e)
 
