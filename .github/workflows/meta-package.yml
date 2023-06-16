@@ -62,7 +62,7 @@ jobs:
           result-encoding: string
           script: |
             const notes = require('${{ github.workspace }}/.github/scripts/notes.js')
-            return await notes({ fetch })
+            return await notes({ core, fetch })
 
       - name: Push tag
         env:

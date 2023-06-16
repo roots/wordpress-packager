@@ -1,4 +1,4 @@
-module.exports = async ({ fetch }) => {
+module.exports = async ({ core, fetch }) => {
   const { VERSION } = process.env
   const slug = `version-${VERSION.replaceAll('.', '-')}`
 
@@ -19,7 +19,7 @@ module.exports = async ({ fetch }) => {
 
     return `_Sourced from [WordPress.org Documentation](${link})._\n\n<h2${body}`
   } catch (e) {
-    console.log(e)
+    core.warning(e)
 
     return `_Version notes available on [WordPress.org Documentation](https://wordpress.org/documentation/wordpress-version/${slug}/)._`
   }
