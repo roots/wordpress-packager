@@ -1,0 +1,41 @@
+name: Releases
+
+on:
+  workflow_dispatch:
+    inputs:
+      tags-matrix:
+        description: Stringified JSON array of tag names
+        type: string
+        required: true
+  workflow_call:
+    inputs:
+      tags-matrix:
+        description: Stringified JSON array of tag names
+        type: string
+        required: true
+
+jobs:
+  notes:
+    name: Notes
+    runs-on: ubuntu-latest
+    environment: release-notes
+    steps:
+      - name: Generate token
+        uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.BOT_APP_ID }}
+          private_key: ${{ secrets.BOT_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v3
+
+      - name: Retrieve version notes
+        uses: actions/github-script@v6
+        env:
+          TAGS_MATRIX: ${{ inputs.tags-matrix }}
+          META_PACKAGE: ${{ vars.META_PACKAGE }}
+        with:
+          github-token: ${{ steps.generate-token.outputs.token }}
+          script: |
+            const notes = require('${{ github.workspace }}/.github/scripts/notes.js')
+            await notes({ github, context, core, fetch })
