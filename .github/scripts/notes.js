@@ -1,4 +1,4 @@
-module.exports = async ({ github, core, fetch }) => {
+module.exports = async ({ github, context, core, fetch }) => {
   const { TAGS_MATRIX, META_PACKAGE } = process.env
   const tags = JSON.parse(TAGS_MATRIX)
 
@@ -25,8 +25,10 @@ module.exports = async ({ github, core, fetch }) => {
             throw Error('Release body is empty or unexpected')
           }
 
+          core.info(tag_name)
           body = `_Sourced from [WordPress.org Documentation](${link})._\n\n<h2${body}`
         } catch (e) {
+          core.info(tag_name)
           core.error(e)
 
           body = `_Version notes available on [WordPress.org Documentation](https://wordpress.org/documentation/wordpress-version/${slug}/)._`
