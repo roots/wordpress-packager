@@ -6,6 +6,7 @@ module.exports = async ({ github, core, fetch }) => {
     tags.map((tag_name) =>
       core.group(tag_name, async (tag_name) => {
         const slug = `version-${tag_name.replaceAll('.', '-')}`
+        let body = ''
 
         try {
           const res = await fetch(
@@ -19,16 +20,16 @@ module.exports = async ({ github, core, fetch }) => {
           }
 
           const { link } = release
-          const body = release.content?.rendered?.split('<h2', 4)[2]
+          body = release.content?.rendered?.split('<h2', 4)[2]
           if (!body) {
             throw Error('Release body is empty or unexpected')
           }
 
-          const body = `_Sourced from [WordPress.org Documentation](${link})._\n\n<h2${body}`
+          body = `_Sourced from [WordPress.org Documentation](${link})._\n\n<h2${body}`
         } catch (e) {
           core.error(e)
 
-          const body = `_Version notes available on [WordPress.org Documentation](https://wordpress.org/documentation/wordpress-version/${slug}/)._`
+          body = `_Version notes available on [WordPress.org Documentation](https://wordpress.org/documentation/wordpress-version/${slug}/)._`
         }
 
         core.info('Publishing')
