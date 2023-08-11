@@ -24,7 +24,7 @@ class DirectoryTest extends TestCase
                    );
 
         // this will throw if invalid path
-        $tempPath = new Path(Directory::mktemp($filesystem));
+        $tempPath = Path::new(Directory::mktemp($filesystem));
 
         $this->assertEquals(sys_get_temp_dir(), $tempPath->getDirname());
         $this->assertStringStartsWith('wordpress-packager', $tempPath->getBasename());

@@ -11,7 +11,7 @@ class Directory
 {
     public static function mktemp(Filesystem $filesystem): string
     {
-        $path = (string) (new Path(sys_get_temp_dir()))
+        $path = (string) (Path::new(sys_get_temp_dir()))
             ->append(uniqid('wordpress-packager', true));
         $filesystem->mkdir($path);
         return $path;
