@@ -1116,20 +1116,20 @@
         },
         {
             "name": "league/uri",
-            "version": "7.0.0",
+            "version": "7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri.git",
-                "reference": "c7a7e9c5b096c0591a60324276dc901c561fb821"
+                "reference": "c0bf6dfa86b7804fe870b3f3d9c653e35a2c9e3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri/zipball/c7a7e9c5b096c0591a60324276dc901c561fb821",
-                "reference": "c7a7e9c5b096c0591a60324276dc901c561fb821",
+                "url": "https://api.github.com/repos/thephpleague/uri/zipball/c0bf6dfa86b7804fe870b3f3d9c653e35a2c9e3e",
+                "reference": "c0bf6dfa86b7804fe870b3f3d9c653e35a2c9e3e",
                 "shasum": ""
             },
             "require": {
-                "league/uri-interfaces": "^7.0",
+                "league/uri-interfaces": "^7.1",
                 "php": "^8.1"
             },
             "conflict": {
@@ -1194,7 +1194,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri-src/issues",
-                "source": "https://github.com/thephpleague/uri/tree/7.0.0"
+                "source": "https://github.com/thephpleague/uri/tree/7.1.0"
             },
             "funding": [
                 {
@@ -1202,24 +1202,24 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-10T14:26:14+00:00"
+            "time": "2023-08-21T20:15:03+00:00"
         },
         {
             "name": "league/uri-components",
-            "version": "7.0.0",
+            "version": "7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-components.git",
-                "reference": "de986d9f3a64085064472f9b9e3a2946d824e3c5"
+                "reference": "bd27df3d9baba359531ce62a7ea6d22a2f8e780e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri-components/zipball/de986d9f3a64085064472f9b9e3a2946d824e3c5",
-                "reference": "de986d9f3a64085064472f9b9e3a2946d824e3c5",
+                "url": "https://api.github.com/repos/thephpleague/uri-components/zipball/bd27df3d9baba359531ce62a7ea6d22a2f8e780e",
+                "reference": "bd27df3d9baba359531ce62a7ea6d22a2f8e780e",
                 "shasum": ""
             },
             "require": {
-                "league/uri": "^7.0",
+                "league/uri": "^7.1",
                 "php": "^8.1"
             },
             "suggest": {
@@ -1275,7 +1275,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri-src/issues",
-                "source": "https://github.com/thephpleague/uri-components/tree/7.0.0"
+                "source": "https://github.com/thephpleague/uri-components/tree/7.1.0"
             },
             "funding": [
                 {
@@ -1283,20 +1283,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-10T14:26:14+00:00"
+            "time": "2023-08-21T20:15:03+00:00"
         },
         {
             "name": "league/uri-interfaces",
-            "version": "7.0.0",
+            "version": "7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-interfaces.git",
-                "reference": "0b5f360829024564b49734b26058d98d90f5b3ba"
+                "reference": "c3ea9306c67c9a1a72312705e8adfcb9cf167310"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/0b5f360829024564b49734b26058d98d90f5b3ba",
-                "reference": "0b5f360829024564b49734b26058d98d90f5b3ba",
+                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/c3ea9306c67c9a1a72312705e8adfcb9cf167310",
+                "reference": "c3ea9306c67c9a1a72312705e8adfcb9cf167310",
                 "shasum": ""
             },
             "require": {
@@ -1359,7 +1359,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri-src/issues",
-                "source": "https://github.com/thephpleague/uri-interfaces/tree/7.0.0"
+                "source": "https://github.com/thephpleague/uri-interfaces/tree/7.1.0"
             },
             "funding": [
                 {
@@ -1367,7 +1367,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-10T14:26:14+00:00"
+            "time": "2023-08-21T20:15:03+00:00"
         },
         {
             "name": "nesbot/carbon",
