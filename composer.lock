@@ -858,7 +858,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v11.29.0",
+            "version": "v11.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -913,7 +913,7 @@
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v11.29.0",
+            "version": "v11.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
@@ -959,7 +959,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v11.29.0",
+            "version": "v11.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -1007,7 +1007,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v11.29.0",
+            "version": "v11.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -1053,16 +1053,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v11.29.0",
+            "version": "v11.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "fc86f3de6640a0fb204bf13e76037a7f191232d7"
+                "reference": "69453485fa4c76589b5a1a98ebef0e8fee749220"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/fc86f3de6640a0fb204bf13e76037a7f191232d7",
-                "reference": "fc86f3de6640a0fb204bf13e76037a7f191232d7",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/69453485fa4c76589b5a1a98ebef0e8fee749220",
+                "reference": "69453485fa4c76589b5a1a98ebef0e8fee749220",
                 "shasum": ""
             },
             "require": {
@@ -1125,7 +1125,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-10-22T13:59:47+00:00"
+            "time": "2024-10-29T20:21:52+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -2112,16 +2112,16 @@
         },
         {
             "name": "symfony/clock",
-            "version": "v7.1.1",
+            "version": "v7.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/clock.git",
-                "reference": "3dfc8b084853586de51dd1441c6242c76a28cbe7"
+                "reference": "97bebc53548684c17ed696bc8af016880f0f098d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/clock/zipball/3dfc8b084853586de51dd1441c6242c76a28cbe7",
-                "reference": "3dfc8b084853586de51dd1441c6242c76a28cbe7",
+                "url": "https://api.github.com/repos/symfony/clock/zipball/97bebc53548684c17ed696bc8af016880f0f098d",
+                "reference": "97bebc53548684c17ed696bc8af016880f0f098d",
                 "shasum": ""
             },
             "require": {
@@ -2166,7 +2166,7 @@
                 "time"
             ],
             "support": {
-                "source": "https://github.com/symfony/clock/tree/v7.1.1"
+                "source": "https://github.com/symfony/clock/tree/v7.1.6"
             },
             "funding": [
                 {
@@ -2182,7 +2182,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-31T14:57:53+00:00"
+            "time": "2024-09-25T14:20:29+00:00"
         },
         {
             "name": "symfony/console",
@@ -3333,16 +3333,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v7.1.5",
+            "version": "v7.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "235535e3f84f3dfbdbde0208ede6ca75c3a489ea"
+                "reference": "b9f72ab14efdb6b772f85041fa12f820dee8d55f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/235535e3f84f3dfbdbde0208ede6ca75c3a489ea",
-                "reference": "235535e3f84f3dfbdbde0208ede6ca75c3a489ea",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/b9f72ab14efdb6b772f85041fa12f820dee8d55f",
+                "reference": "b9f72ab14efdb6b772f85041fa12f820dee8d55f",
                 "shasum": ""
             },
             "require": {
@@ -3407,7 +3407,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v7.1.5"
+                "source": "https://github.com/symfony/translation/tree/v7.1.6"
             },
             "funding": [
                 {
@@ -3423,7 +3423,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-16T06:30:38+00:00"
+            "time": "2024-09-28T12:35:13+00:00"
         },
         {
             "name": "symfony/translation-contracts",
