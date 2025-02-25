@@ -39,7 +39,7 @@
         "composer/composer": "^2.7",
         "composer/semver": "^3.4",
         "czproject/git-php": "^4.2",
-        "illuminate/support": "^11.1",
+        "illuminate/support": "^11.1 || ^12.0",
         "league/uri-components": "^7.4",
         "symfony/console": "^7.0",
         "symfony/filesystem": "^7.0"
