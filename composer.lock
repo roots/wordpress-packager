@@ -862,7 +862,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v12.10.0",
+            "version": "v12.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -919,16 +919,16 @@
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v12.10.0",
+            "version": "v12.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
-                "reference": "babbddf119c7aabcce0e369f77e139bccbdec858"
+                "reference": "455a28c08f849db93078c9a60d765b88011affd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/conditionable/zipball/babbddf119c7aabcce0e369f77e139bccbdec858",
-                "reference": "babbddf119c7aabcce0e369f77e139bccbdec858",
+                "url": "https://api.github.com/repos/illuminate/conditionable/zipball/455a28c08f849db93078c9a60d765b88011affd2",
+                "reference": "455a28c08f849db93078c9a60d765b88011affd2",
                 "shasum": ""
             },
             "require": {
@@ -961,11 +961,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-04-18T12:44:14+00:00"
+            "time": "2025-04-23T12:59:28+00:00"
         },
         {
             "name": "illuminate/contracts",
-            "version": "v12.10.0",
+            "version": "v12.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -1013,7 +1013,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v12.10.0",
+            "version": "v12.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -1059,7 +1059,7 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v12.10.0",
+            "version": "v12.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
