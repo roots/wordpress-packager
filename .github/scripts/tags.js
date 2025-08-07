@@ -2,9 +2,9 @@ module.exports = async ({ github, context }) => {
   const { PACKAGE, META } = process.env
 
   const [
-    { data: currrentTags },
+    { data: currrentTags1 },
     { data: currrentTags2 },
-    { data: upstreamTags },
+    { data: upstreamTags1 },
     { data: upstreamTags2 },
   ] = await Promise.all([
     github.rest.repos.listTags({
@@ -33,8 +33,8 @@ module.exports = async ({ github, context }) => {
     }),
   ])
 
-  currrentTags.concat(currrentTags2)
-  upstreamTags.concat(upstreamTags2)
+  const currrentTags = currrentTags1.concat(currrentTags2)
+  const upstreamTags = upstreamTags1.concat(upstreamTags2)
 
   const targetTags = await Promise.allSettled(
     upstreamTags
