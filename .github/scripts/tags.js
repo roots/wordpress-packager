@@ -1,18 +1,40 @@
 module.exports = async ({ github, context }) => {
   const { PACKAGE, META } = process.env
 
-  const [{ data: currrentTags }, { data: upstreamTags }] = await Promise.all([
+  const [
+    { data: currrentTags },
+    { data: currrentTags2 },
+    { data: upstreamTags },
+    { data: upstreamTags2 },
+  ] = await Promise.all([
     github.rest.repos.listTags({
       owner: context.repo.owner,
       repo: META.substring(META.indexOf('/') + 1),
       per_page: 100,
+      page: 1,
+    }),
+    github.rest.repos.listTags({
+      owner: context.repo.owner,
+      repo: META.substring(META.indexOf('/') + 1),
+      per_page: 100,
+      page: 2,
     }),
     github.rest.repos.listTags({
       owner: context.repo.owner,
       repo: PACKAGE.substring(PACKAGE.indexOf('/') + 1),
       per_page: 100,
+      page: 1,
+    }),
+    github.rest.repos.listTags({
+      owner: context.repo.owner,
+      repo: PACKAGE.substring(PACKAGE.indexOf('/') + 1),
+      per_page: 100,
+      page: 2,
     }),
   ])
+
+  currrentTags.concat(currrentTags2)
+  upstreamTags.concat(upstreamTags2)
 
   const targetTags = await Promise.allSettled(
     upstreamTags
