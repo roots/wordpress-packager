@@ -14,7 +14,7 @@ jobs:
     outputs:
       package-name: ${{ steps.package.outputs.package-name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: ${{ vars.META_PACKAGE }}
 
@@ -30,7 +30,7 @@ jobs:
     outputs:
       tags-matrix: ${{ steps.tags-matrix.outputs.result }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Generate matrix from versions arrays
         id: tags-matrix
         uses: actions/github-script@v7
@@ -61,7 +61,7 @@ jobs:
           app_id: ${{ secrets.BOT_APP_ID }}
           private_key: ${{ secrets.BOT_PRIVATE_KEY }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: ${{ vars.META_PACKAGE }}
           token: ${{ steps.generate-token.outputs.token }}
