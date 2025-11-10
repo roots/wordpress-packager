@@ -699,23 +699,23 @@
         },
         {
             "name": "czproject/git-php",
-            "version": "v4.5.0",
+            "version": "v4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/czproject/git-php.git",
-                "reference": "3ea910e188849d5e239d65167010c05196310915"
+                "reference": "1f1ecc92aea9ee31120f4f5b759f5aa947420b0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/czproject/git-php/zipball/3ea910e188849d5e239d65167010c05196310915",
-                "reference": "3ea910e188849d5e239d65167010c05196310915",
+                "url": "https://api.github.com/repos/czproject/git-php/zipball/1f1ecc92aea9ee31120f4f5b759f5aa947420b0a",
+                "reference": "1f1ecc92aea9ee31120f4f5b759f5aa947420b0a",
                 "shasum": ""
             },
             "require": {
-                "php": "8.0 - 8.4"
+                "php": "8.0 - 8.5"
             },
             "require-dev": {
-                "nette/tester": "^2.4"
+                "nette/tester": "^2.5"
             },
             "type": "library",
             "autoload": {
@@ -739,9 +739,13 @@
             ],
             "support": {
                 "issues": "https://github.com/czproject/git-php/issues",
-                "source": "https://github.com/czproject/git-php/tree/v4.5.0"
+                "source": "https://github.com/czproject/git-php/tree/v4.6.0"
             },
             "funding": [
+                {
+                    "url": "https://github.com/sponsors/janpecha",
+                    "type": "github"
+                },
                 {
                     "url": "https://www.janpecha.cz/donate/git-php/",
                     "type": "other"
@@ -749,9 +753,13 @@
                 {
                     "url": "https://donate.stripe.com/7sIcO2a9maTSg2A9AA",
                     "type": "stripe"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/czproject",
+                    "type": "thanks.dev"
                 }
             ],
-            "time": "2025-06-10T18:32:14+00:00"
+            "time": "2025-11-10T07:24:07+00:00"
         },
         {
             "name": "doctrine/inflector",
