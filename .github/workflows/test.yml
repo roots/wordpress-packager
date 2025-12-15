@@ -33,6 +33,6 @@ jobs:
     - run: composer install --prefer-dist
     - run: composer run test
     - run: composer run lint
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v6
       with:
         path: coverage/
