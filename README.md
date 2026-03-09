@@ -2,11 +2,17 @@
 
 > Helper to generate WordPress Composer packages
 
-[![Test](https://github.com/roots/wordpress-packager/actions/workflows/test.yml/badge.svg)](https://github.com/roots/wordpress-packager/actions/workflows/test.yml)
+[![Test](https://img.shields.io/github/actions/workflow/status/roots/wordpress-packager/test.yml?logo=github&label=CI&style=flat-square)](https://github.com/roots/wordpress-packager/actions/workflows/test.yml)
+[![Follow Roots](https://img.shields.io/badge/follow%20@rootswp-1da1f2?logo=twitter&logoColor=ffffff&message=&style=flat-square)](https://twitter.com/rootswp)
+[![Sponsor Roots](https://img.shields.io/badge/sponsor%20roots-525ddc?logo=github&style=flat-square&logoColor=ffffff&message=)](https://github.com/sponsors/roots)
 
 ## About
 
 This package helps to generate Composer packages for any WordPress release.
+
+## Support us
+
+We're dedicated to pushing modern WordPress development forward through our open source projects, and we need your support to keep building. You can support our work by purchasing [Radicle](https://roots.io/radicle/), our recommended WordPress stack, or by [sponsoring us on GitHub](https://github.com/sponsors/roots). Every contribution directly helps us create better tools for the WordPress ecosystem.
 
 ## Usage
 
@@ -55,3 +61,13 @@ Type|Official|Themes|Plugins|Beta & RC
 Optional.
 
 If set, the available unstable releases (beta & release candidates) will be added as well.
+
+## Community
+
+Keep track of development and community news.
+
+- Join us on Discord by [sponsoring us on GitHub](https://github.com/sponsors/roots)
+- Join us on [Roots Discourse](https://discourse.roots.io/)
+- Follow [@rootswp on Twitter](https://twitter.com/rootswp)
+- Follow the [Roots Blog](https://roots.io/blog/)
+- Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
