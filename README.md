@@ -64,7 +64,7 @@ If set, the available unstable releases (beta & release candidates) will be adde
 
 ## Related
 
-- [WP Composer](https://wp-composer.com/) — All WordPress.org plugins and themes as a Composer repository
+- [WP Packages](https://wp-packages.org/) — All WordPress.org plugins and themes as a Composer repository
 
 ## Community
 
