@@ -6,8 +6,55 @@ on:
     - cron: '*/10 * * * *'
 
 jobs:
+  check:
+    name: Check for new releases
+    runs-on: ubuntu-latest
+    outputs:
+      has-new: ${{ steps.check.outputs.has-new }}
+    steps:
+      - name: Check for unpackaged WordPress releases
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+          PACKAGE_PREFIX: ${{ vars.PACKAGE_PREFIX }}
+        run: |
+          set -euo pipefail
+
+          api_url='https://api.wordpress.org/core/version-check/1.7/'
+
+          # Fetch stable + beta into separate files
+          curl -sf "$api_url" -o /tmp/wp-stable.json
+          curl -sf "${api_url}?channel=beta" -o /tmp/wp-beta.json
+
+          has_new=false
+          for type in full no-content; do
+            api_type=$(echo "$type" | tr '-' '_')
+
+            # Get versions that have a download URL for this package type
+            # Mirrors PHP filter: response == "autoupdate" && packages.<type> is truthy
+            versions=$(jq -r '[.offers[] | select(.response == "autoupdate" and .packages.'"${api_type}"') | .version] | unique | .[]' \
+              /tmp/wp-stable.json /tmp/wp-beta.json | sort -u)
+
+            echo "Versions available for ${type}: $(echo $versions | tr '\n' ' ')"
+
+            tags=$(gh api "repos/${OWNER}/${PACKAGE_PREFIX}${type}/git/refs/tags" \
+              --paginate --jq '.[].ref | ltrimstr("refs/tags/")')
+
+            for version in $versions; do
+              if ! echo "$tags" | grep -qx "$version"; then
+                echo "New release found: $version (missing from ${PACKAGE_PREFIX}${type})"
+                has_new=true
+              fi
+            done
+          done
+
+          echo "has-new=${has_new}" >> "$GITHUB_OUTPUT"
+
   packager:
     name: ${{ matrix.release-type }}
+    needs: [check]
+    if: always() && (needs.check.outputs.has-new == 'true' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -57,6 +104,8 @@ jobs:
   meta-package:
     name: Meta-package
     needs:
+      - check
       - packager
+    if: always() && needs.packager.result == 'success' && (needs.check.outputs.has-new == 'true' || github.event_name == 'workflow_dispatch')
     uses: ./.github/workflows/meta-package.yml
     secrets: inherit
