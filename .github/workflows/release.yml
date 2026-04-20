@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Retrieve version notes
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           TAGS_MATRIX: ${{ inputs.tags-matrix }}
           META_PACKAGE: ${{ vars.META_PACKAGE }}
