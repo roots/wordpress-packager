@@ -34,7 +34,7 @@
         "lint:fix": "phpcbf"
     },
     "require": {
-        "php": "^8.2",
+        "php": "8.5.*",
         "ext-json": "*",
         "composer/composer": "^2.7",
         "composer/semver": "^3.4",
@@ -52,6 +52,9 @@
         "squizlabs/php_codesniffer": "^3.9 || ^4.0"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.5"
+        }
     }
 }
