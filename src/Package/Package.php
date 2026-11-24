@@ -75,12 +75,11 @@ class Package extends CompletePackage implements JsonSerializable
         $this->setSupport([
             'issues' => 'https://core.trac.wordpress.org/tickets/latest',
             'forum' => 'https://wordpress.org/support/forums/',
-            'wiki' => 'https://wordpress.org/documentation/',
-            'irc' => 'irc://irc.freenode.net/wordpress',
+            'irc' => 'irc://irc.libera.chat/wordpress',
             'source' => 'https://core.trac.wordpress.org/browser',
             'docs' => 'https://developer.wordpress.org/',
             'rss' => 'https://wordpress.org/news/feed/',
-            'security' => 'https://wordpress.org/about/security/'
+            'security' => 'https://hackerone.com/wordpress'
         ]);
         $this->setFunding([
             [
