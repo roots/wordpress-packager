@@ -34,7 +34,7 @@
         "lint:fix": "phpcbf"
     },
     "require": {
-        "php": "^8.2",
+        "php": "8.5.*",
         "ext-json": "*",
         "composer/composer": "^2.7",
         "composer/semver": "^3.4",
